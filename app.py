@@ -147,6 +147,18 @@ with st.sidebar:
         st.warning("API 키가 설정되지 않았습니다. 관리자에게 문의하세요.", icon="⚠️")
 
     st.divider()
+    if st.button("🔍 GitHub 연결 테스트", use_container_width=True):
+        token = _get_secret("GITHUB_TOKEN")
+        repo = _get_secret("GITHUB_REPO") or "jimin1209/sujin"
+        if not token:
+            st.error("GITHUB_TOKEN 이 Secrets 에 없습니다.")
+        else:
+            result = cache_store.check_github_access(repo=repo, token=token)
+            if result["ok"]:
+                st.success(result["message"])
+            else:
+                st.error(result["message"])
+
     shared_cache = _shared_cache()
     dirty = _dirty_flag()["dirty"]
     st.metric("영구 캐시 (조회 완료 개체)", len(shared_cache))
