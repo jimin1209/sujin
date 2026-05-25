@@ -20,7 +20,7 @@ from openpyxl import Workbook
 
 import db
 from api_client import fetch_status
-from excel_parser import parse_farm_excel, parse_filename
+from excel_parser import parse_farm_file, parse_filename
 
 PROJECT_ROOT = Path(__file__).parent
 INPUT_DIR = PROJECT_ROOT / "input"
@@ -30,7 +30,8 @@ OUTPUT_FILE = OUTPUT_DIR / "사육소계산(현재사용중).xlsx"
 
 def collect_input_files() -> list[Path]:
     files = []
-    for p in sorted(INPUT_DIR.glob("*.xls")):
+    candidates = list(INPUT_DIR.glob("*.xls")) + list(INPUT_DIR.glob("*.xlsx")) + list(INPUT_DIR.glob("*.pdf"))
+    for p in sorted(candidates):
         meta = parse_filename(p)
         if meta is None:
             print(f"  [skip] 파일명 형식 불일치: {p.name}")
@@ -57,7 +58,7 @@ def process_file(path: Path, *, skip_api: bool = False) -> None:
 
     print(f"\n[처리] {meta.doc_name} (농장: {meta.farm_name}, 기준일: {meta.doc_date})")
 
-    farm_info, cattle_rows = parse_farm_excel(path)
+    farm_info, cattle_rows = parse_farm_file(path)
     farm_name = farm_info["farm_name"] or meta.farm_name
     db.upsert_farm(farm_name, farm_info["farm_id"], farm_info["owner"], farm_info["address"])
 

@@ -1,4 +1,4 @@
-"""농장 상세 엑셀 (xls) 파서."""
+"""농장 상세 파일 (xls / xlsx / pdf) 파서."""
 from __future__ import annotations
 
 import re
@@ -10,8 +10,16 @@ import pandas as pd
 
 
 FILENAME_RE = re.compile(
-    r"^\s*(?P<farm>.+?)\s*-\s*(?P<yy>\d{2})[._-](?P<mm>\d{2})[._-](?P<dd>\d{2})\s*기준\s*\.(?:xls|xlsx)\s*$",
+    r"^\s*(?P<farm>.+?)\s*-\s*(?P<yy>\d{2})[._-](?P<mm>\d{2})[._-](?P<dd>\d{2})\s*기준\s*\.(?:xls|xlsx|pdf)\s*$",
     re.IGNORECASE,
+)
+
+# PDF 한 줄 데이터 행:
+#   일련번호 12자리식별 종류 성별 YY.MM.DD 개월령 12자리모개체 상태 YY.MM.DD 단축번호
+PDF_ROW_RE = re.compile(
+    r"^\s*(?P<seq>\d+)\s+(?P<no>\d{12})\s+(?P<breed>\S+)\s+(?P<sex>\S+)\s+"
+    r"(?P<birth>\d{2}\.\d{2}\.\d{2})\s+(?P<months>\d+)\s+(?P<mother>\d{12})\s+"
+    r"(?P<status>\S+)\s+(?P<reg>\d{2}\.\d{2}\.\d{2})\s+(?P<short>\S+)\s*$"
 )
 
 
@@ -116,3 +124,50 @@ def parse_farm_excel(path: Path) -> tuple[dict, list[dict]]:
         )
 
     return farm_info, rows
+
+
+def parse_farm_pdf(path: Path) -> tuple[dict, list[dict]]:
+    """PDF 형태 농장 사육현황 파서 (xls 와 동일한 리턴 형태)."""
+    import pdfplumber  # 지연 임포트
+
+    farm_info = {"farm_name": None, "farm_id": None, "owner": None, "address": None}
+    rows: list[dict] = []
+
+    with pdfplumber.open(path) as pdf:
+        for page_idx, page in enumerate(pdf.pages):
+            text = page.extract_text() or ""
+            if page_idx == 0:
+                m = re.search(r"농장명\s*:\s*([^\(\s]+).*?농장식별번호\s*:\s*(\d+)", text)
+                if m:
+                    farm_info["farm_name"] = m.group(1).strip()
+                    farm_info["farm_id"] = m.group(2).strip()
+                m = re.search(r"농장\s*주소\s*:\s*\(법정동\)\s*([^\n]+)", text)
+                if m:
+                    farm_info["address"] = m.group(1).strip()
+                m = re.search(r"농장경영자명\s*:\s*([^,]+)", text)
+                if m:
+                    farm_info["owner"] = m.group(1).strip()
+
+            for line in text.splitlines():
+                m = PDF_ROW_RE.match(line)
+                if not m:
+                    continue
+                rows.append(
+                    {
+                        "cattle_no": m["no"],
+                        "breed": m["breed"],
+                        "sex": m["sex"],
+                        "birth_date": _format_birth(m["birth"]),
+                        "mother_no": m["mother"],
+                    }
+                )
+
+    return farm_info, rows
+
+
+def parse_farm_file(path: Path) -> tuple[dict, list[dict]]:
+    """확장자 보고 적절한 파서로 디스패치."""
+    suffix = path.suffix.lower()
+    if suffix == ".pdf":
+        return parse_farm_pdf(path)
+    return parse_farm_excel(path)

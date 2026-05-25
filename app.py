@@ -30,7 +30,7 @@ except Exception:
 
 import db  # noqa: E402
 from api_client import TraceInfo, fetch_status  # noqa: E402
-from excel_parser import parse_farm_excel, parse_filename  # noqa: E402
+from excel_parser import parse_farm_file, parse_filename  # noqa: E402
 
 
 # API 응답 캐시 — 같은 개체는 24h 동안 재호출 안 함.
@@ -123,12 +123,12 @@ _ensure_session_db()
 
 st.subheader("1. 농장 엑셀 업로드")
 st.markdown(
-    "- 파일명 형식: `1농장-25.01.31기준.xls` (농장명-YY.MM.DD기준.xls)\n"
+    "- 파일명 형식: `1농장-25.01.31기준.xls` (농장명-YY.MM.DD기준.xls / .xlsx / .pdf)\n"
     "- 여러 개 한 번에 올려도 됩니다. 같은 농장의 여러 월을 함께 올리면 자동으로 비교합니다."
 )
 uploads = st.file_uploader(
-    "xls 파일 선택",
-    type=["xls", "xlsx"],
+    "파일 선택",
+    type=["xls", "xlsx", "pdf"],
     accept_multiple_files=True,
     label_visibility="collapsed",
 )
@@ -175,7 +175,7 @@ if uploads:
                 prev_set = {r["cattle_no"] for r in db.get_cattle_by_farm_doc_date(meta.farm_name, prev)}
                 # 임시 파싱해서 사라진 수 산출
                 path = _save_uploaded(u)
-                _, cattle_rows = parse_farm_excel(path)
+                _, cattle_rows = parse_farm_file(path)
                 curr_set = {r["cattle_no"] for r in cattle_rows}
                 api_calls += len(prev_set - curr_set) if use_api else 0
 
@@ -193,7 +193,7 @@ if uploads:
             path = _save_uploaded(u)
             log(f"[처리] {meta.doc_name}")
 
-            farm_info, cattle_rows = parse_farm_excel(path)
+            farm_info, cattle_rows = parse_farm_file(path)
             farm_name = farm_info["farm_name"] or meta.farm_name
             db.upsert_farm(farm_name, farm_info["farm_id"], farm_info["owner"], farm_info["address"])
             for r in cattle_rows:
