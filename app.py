@@ -29,8 +29,15 @@ except Exception:
     pass
 
 import db  # noqa: E402
-from api_client import fetch_status  # noqa: E402
+from api_client import TraceInfo, fetch_status  # noqa: E402
 from excel_parser import parse_farm_excel, parse_filename  # noqa: E402
+
+
+# API 응답 캐시 — 같은 개체는 24h 동안 재호출 안 함.
+# 모든 사용자/세션이 공유 (Streamlit Cloud 인스턴스 단위).
+@st.cache_data(ttl=86400, show_spinner=False)
+def cached_fetch_status(cattle_no: str) -> TraceInfo:
+    return fetch_status(cattle_no)
 
 st.set_page_config(page_title="수진쨩노 안심농장 사육수 계산", page_icon="🐄", layout="wide")
 st.title("🐄 수진쨩노 안심농장 사육수 계산")
@@ -103,6 +110,10 @@ with st.sidebar:
     if st.button("🔄 세션 초기화 (업로드 기록 삭제)", use_container_width=True):
         _reset_session_db()
         st.success("초기화 완료. 페이지를 새로고침 하세요.")
+    if st.button("🧹 API 캐시 비우기", use_container_width=True,
+                 help="같은 개체 재조회 시 강제로 API 호출"):
+        cached_fetch_status.clear()
+        st.success("캐시 비움")
 
 
 # ────────────────────────────────────────────────────────────────────
@@ -199,7 +210,7 @@ if uploads:
                 log(f"  전월({prev_doc_date}) 대비 사라진 개체: {len(missing)}")
                 if use_api:
                     for no in missing:
-                        info = fetch_status(no)
+                        info = cached_fetch_status(no)
                         db.update_cattle_status(no, info.status, info.status_date)
                         api_done += 1
                         step += 1
