@@ -119,6 +119,8 @@ def build_workbook(
             birth = _parse_ymd(c.birth_date)
             acq = _parse_ymd(c.acquisition_date)
             acq_mo = _months_diff(birth, acq) if (birth and acq) else None
+            # 어린소 여부 — 매입 시점 13개월 이하면 어린소. 아니면 카운터/매입월령 표시 안 함.
+            is_young = (acq_mo is not None and acq_mo <= 13)
             end_dt = _parse_ymd(c.status_date) if c.status in END_STATUSES else None
 
             row = [
@@ -127,22 +129,29 @@ def build_workbook(
                 c.sex or "",
                 birth,
                 acq,
-                acq_mo,
+                acq_mo if is_young else None,
             ]
 
-            # 월별 카운터
-            counter = 0
-            for y, m, _ in month_cols:
-                cell_month = date(y, m, 1)
-                cell_month_end = date(y + (1 if m == 12 else 0), 1 if m == 12 else m + 1, 1)
-                is_acquired = (acq is not None and acq < cell_month_end)
-                is_alive = (end_dt is None or cell_month < date(end_dt.year, end_dt.month, 1) or
-                            (end_dt.year == y and end_dt.month == m))
-                if is_acquired:
-                    counter += 1
-                    row.append(counter if is_alive else None)
-                else:
-                    row.append(None)
+            if is_young:
+                # 월별 카운터: 매입월 = 1, 다음월 = 2, ... 도축/폐사/양수도 된 월까지
+                counter = 0
+                for y, m, _ in month_cols:
+                    cell_month = date(y, m, 1)
+                    cell_month_end = date(y + (1 if m == 12 else 0), 1 if m == 12 else m + 1, 1)
+                    is_acquired = (acq is not None and acq < cell_month_end)
+                    is_alive = (
+                        end_dt is None
+                        or cell_month < date(end_dt.year, end_dt.month, 1)
+                        or (end_dt.year == y and end_dt.month == m)
+                    )
+                    if is_acquired:
+                        counter += 1
+                        row.append(counter if is_alive else None)
+                    else:
+                        row.append(None)
+            else:
+                # 성축 매입은 카운터 빈칸
+                row.extend([None] * len(month_cols))
 
             row.append(c.status)
             row.append(_parse_ymd(c.status_date))
