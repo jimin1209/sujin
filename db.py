@@ -18,7 +18,8 @@ def set_db_path(path: str | Path) -> None:
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS farms (
     farm_name TEXT PRIMARY KEY,
-    farm_id TEXT,
+    farm_id TEXT,            -- 농장식별번호 (farmUniqueNo)
+    farm_no TEXT,            -- 농장번호 (farmNo, API 매칭용)
     owner TEXT,
     address TEXT
 );
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS cattle (
     mother_no TEXT,
     status TEXT DEFAULT '사육',
     status_date TEXT,
+    acquisition_date TEXT,   -- 매입일 (우리 농장으로 들어온 날, API 사육지 이력 기준)
     first_seen_doc_date TEXT,
     last_seen_doc_date TEXT,
     updated_at TEXT DEFAULT CURRENT_TIMESTAMP
@@ -90,10 +92,35 @@ def upsert_farm(farm_name: str, farm_id: str | None, owner: str | None, address:
             """INSERT INTO farms (farm_name, farm_id, owner, address)
                VALUES (?, ?, ?, ?)
                ON CONFLICT(farm_name) DO UPDATE SET
-                 farm_id=excluded.farm_id,
-                 owner=excluded.owner,
-                 address=excluded.address""",
+                 farm_id=COALESCE(excluded.farm_id, farms.farm_id),
+                 owner=COALESCE(excluded.owner, farms.owner),
+                 address=COALESCE(excluded.address, farms.address)""",
             (farm_name, farm_id, owner, address),
+        )
+
+
+def set_farm_no(farm_name: str, farm_no: str) -> None:
+    with connect() as conn:
+        conn.execute("UPDATE farms SET farm_no=? WHERE farm_name=?", (farm_no, farm_name))
+
+
+def get_farm(farm_name: str) -> sqlite3.Row | None:
+    with connect() as conn:
+        cur = conn.execute("SELECT * FROM farms WHERE farm_name=?", (farm_name,))
+        return cur.fetchone()
+
+
+def get_all_farms() -> list[sqlite3.Row]:
+    with connect() as conn:
+        cur = conn.execute("SELECT * FROM farms")
+        return cur.fetchall()
+
+
+def update_cattle_acquisition(cattle_no: str, acquisition_date: str | None) -> None:
+    with connect() as conn:
+        conn.execute(
+            "UPDATE cattle SET acquisition_date=? WHERE cattle_no=?",
+            (acquisition_date, cattle_no),
         )
 
 

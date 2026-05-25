@@ -31,8 +31,9 @@ except Exception:
 
 import cache as cache_store  # noqa: E402
 import db  # noqa: E402
-from api_client import TraceInfo, fetch_status  # noqa: E402
+from api_client import TraceInfo, fetch_farm_no_for_unique, fetch_trace  # noqa: E402
 from excel_parser import parse_farm_file, parse_filename  # noqa: E402
+from output_builder import CowRow, build_workbook  # noqa: E402
 
 
 def _get_secret(key: str) -> str | None:
@@ -63,21 +64,43 @@ def _dirty_flag() -> dict:
     return {"dirty": False}
 
 
-def lookup_status(cattle_no: str) -> TraceInfo:
-    """캐시 우선 조회 → 없으면 API 호출 후 공유 캐시에 적재 + 로컬 파일 저장."""
+def lookup_trace(cattle_no: str, our_farm_no: str | None) -> TraceInfo:
+    """캐시 우선 조회 → 없으면 API 호출 후 공유 캐시에 적재 + 로컬 파일 저장.
+
+    캐시 엔트리: {status, status_date, acquisition_date}
+    """
     cache = _shared_cache()
     hit = cache.get(cattle_no)
-    if hit:
-        return TraceInfo(status=hit["status"], status_date=hit.get("status_date"))
-    info = fetch_status(cattle_no)
+    if hit and "acquisition_date" in hit:
+        return TraceInfo(
+            status=hit["status"],
+            status_date=hit.get("status_date"),
+            acquisition_date=hit.get("acquisition_date"),
+        )
+    info = fetch_trace(cattle_no, our_farm_no=our_farm_no)
     with _cache_lock():
-        cache[cattle_no] = {"status": info.status, "status_date": info.status_date}
+        cache[cattle_no] = {
+            "status": info.status,
+            "status_date": info.status_date,
+            "acquisition_date": info.acquisition_date,
+        }
         _dirty_flag()["dirty"] = True
         try:
             cache_store.save_local(cache)
         except Exception:
             pass
     return info
+
+
+def _ensure_farm_no(farm_name: str, farm_unique_no: str, sample_cattle_no: str) -> str | None:
+    """농장의 farm_no 를 DB 에서 가져오거나, 없으면 API 호출로 학습."""
+    f = db.get_farm(farm_name)
+    if f and f["farm_no"]:
+        return f["farm_no"]
+    farm_no = fetch_farm_no_for_unique(sample_cattle_no, farm_unique_no)
+    if farm_no:
+        db.set_farm_no(farm_name, farm_no)
+    return farm_no
 
 st.set_page_config(page_title="수진쨩노 안심농장 사육수 계산", page_icon="🐄", layout="wide")
 st.title("🐄 수진쨩노 안심농장 사육수 계산")
@@ -111,7 +134,8 @@ def _save_uploaded(upload) -> Path:
     return path
 
 
-def _build_output_xlsx(rows: list) -> bytes:
+def _build_output_xlsx_legacy(rows: list) -> bytes:
+    """레거시 단일 시트 출력 (사용 안 함, 참고용)."""
     year = datetime.now().year
     wb = Workbook()
     ws = wb.active
@@ -266,6 +290,15 @@ if uploads:
             for r in cattle_rows:
                 r["farm_name"] = farm_name
 
+            # 농장의 farm_no (API 매칭용) 학습
+            our_farm_no = None
+            if use_api and farm_info["farm_id"] and cattle_rows:
+                our_farm_no = _ensure_farm_no(
+                    farm_name, farm_info["farm_id"], cattle_rows[0]["cattle_no"],
+                )
+                if our_farm_no:
+                    log(f"  농장번호: {our_farm_no}")
+
             prev_doc_date = db.get_prev_doc_date(farm_name, meta.doc_date)
             inserted, updated = db.upsert_cattle_batch(cattle_rows, meta.doc_date)
             log(f"  개체: 신규 {inserted}, 갱신 {updated} (총 {len(cattle_rows)})")
@@ -277,8 +310,10 @@ if uploads:
                 log(f"  전월({prev_doc_date}) 대비 사라진 개체: {len(missing)}")
                 if use_api:
                     for no in missing:
-                        info = lookup_status(no)
+                        info = lookup_trace(no, our_farm_no)
                         db.update_cattle_status(no, info.status, info.status_date)
+                        if info.acquisition_date:
+                            db.update_cattle_acquisition(no, info.acquisition_date)
                         api_done += 1
                         step += 1
                         progress.progress(min(step / max(total_steps, 1), 1.0),
@@ -291,6 +326,31 @@ if uploads:
             step += 1
             progress.progress(min(step / max(total_steps, 1), 1.0),
                               text=f"({idx+1}/{len(ordered)}) 완료")
+
+        # 활성 소들의 매입일 채우기 (도축/폐사/양수도 제외, acquisition_date 없는 것만)
+        if use_api:
+            with db.connect() as conn:
+                missing_acq = conn.execute(
+                    """SELECT cattle_no, farm_name FROM cattle
+                       WHERE acquisition_date IS NULL
+                         AND status NOT IN ('도축', '폐사', '양수도')"""
+                ).fetchall()
+            if missing_acq:
+                log(f"\n[매입일 보강] 활성 소 {len(missing_acq)}건 API 조회")
+                # farm_no 미리 캐시
+                farm_no_map: dict[str, str | None] = {}
+                for r in db.get_all_farms():
+                    farm_no_map[r["farm_name"]] = r["farm_no"]
+                for i, row in enumerate(missing_acq, start=1):
+                    fno = farm_no_map.get(row["farm_name"])
+                    info = lookup_trace(row["cattle_no"], fno)
+                    if info.acquisition_date:
+                        db.update_cattle_acquisition(row["cattle_no"], info.acquisition_date)
+                    # 부수적으로 status 도 최신화
+                    if info.status != "사육":
+                        db.update_cattle_status(row["cattle_no"], info.status, info.status_date)
+                    if i % 20 == 0:
+                        progress.progress(1.0, text=f"매입일 보강 {i}/{len(missing_acq)}")
 
         progress.progress(1.0, text="완료")
         st.success("처리 완료")
@@ -311,7 +371,6 @@ if st.session_state.get("processed"):
     col1.metric("활성 개체 (사육 중)", len(active))
     col2.metric("농장 수", active_df["farm_name"].nunique() if not active_df.empty else 0)
 
-    # 농장별 통계
     if not active_df.empty:
         by_farm = active_df.groupby("farm_name").size().reset_index(name="활성 개체수")
         col3.metric("최대 농장", f"{by_farm.iloc[by_farm['활성 개체수'].idxmax()]['farm_name']}")
@@ -319,28 +378,58 @@ if st.session_state.get("processed"):
         st.markdown("**농장별 활성 개체**")
         st.dataframe(by_farm, use_container_width=True, hide_index=True)
 
-    if not active_df.empty:
         st.markdown("**전체 활성 개체 목록**")
         display = active_df[[
-            "farm_name", "cattle_no", "breed", "sex", "birth_date",
-            "first_seen_doc_date", "last_seen_doc_date", "status",
+            "farm_name", "cattle_no", "sex", "birth_date", "acquisition_date",
+            "last_seen_doc_date", "status",
         ]].rename(columns={
             "farm_name": "농장",
             "cattle_no": "개체식별번호",
-            "breed": "소의종류",
             "sex": "성별",
             "birth_date": "출생일자",
-            "first_seen_doc_date": "최초확인일",
+            "acquisition_date": "매입일",
             "last_seen_doc_date": "최종확인일",
             "status": "상태",
         })
         st.dataframe(display, use_container_width=True, hide_index=True, height=400)
 
-    xlsx_bytes = _build_output_xlsx(active)
+    # 새 양식: 매입 연도별 시트 + 월별 누적 카운터
+    # 전체 cattle 가져오기 (도축/폐사/양수도 포함해서 과거 이력까지)
+    with db.connect() as conn:
+        all_cattle = conn.execute(
+            "SELECT * FROM cattle ORDER BY acquisition_date, cattle_no"
+        ).fetchall()
+
+    # 업로드된 doc_date 범위
+    with db.connect() as conn:
+        dates = conn.execute(
+            "SELECT MIN(doc_date) AS lo, MAX(doc_date) AS hi FROM processed_docs"
+        ).fetchone()
+    if dates and dates["lo"] and dates["hi"]:
+        from datetime import date as _date
+        lo = datetime.strptime(dates["lo"], "%Y-%m-%d").date()
+        hi = datetime.strptime(dates["hi"], "%Y-%m-%d").date()
+    else:
+        today = datetime.now().date()
+        lo = hi = today
+
+    cow_rows = [
+        CowRow(
+            cattle_no=r["cattle_no"],
+            sex=r["sex"],
+            birth_date=r["birth_date"],
+            acquisition_date=r["acquisition_date"] or r["first_seen_doc_date"],
+            status=r["status"],
+            status_date=r["status_date"],
+        )
+        for r in all_cattle
+    ]
+
+    xlsx_bytes = build_workbook(cow_rows, doc_date_range=(lo, hi))
     st.download_button(
-        "📥 사육소계산(현재사용중).xlsx 다운로드",
+        "📥 사육소 계산(현재사용중인표).xlsx 다운로드",
         data=xlsx_bytes,
-        file_name="사육소계산(현재사용중).xlsx",
+        file_name="사육소 계산(현재사용중인표).xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         type="primary",
         use_container_width=True,

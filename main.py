@@ -16,11 +16,10 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from openpyxl import Workbook
-
 import db
-from api_client import fetch_status
+from api_client import fetch_farm_no_for_unique, fetch_trace
 from excel_parser import parse_farm_file, parse_filename
+from output_builder import CowRow, build_workbook
 
 PROJECT_ROOT = Path(__file__).parent
 INPUT_DIR = PROJECT_ROOT / "input"
@@ -65,6 +64,17 @@ def process_file(path: Path, *, skip_api: bool = False) -> None:
     for r in cattle_rows:
         r["farm_name"] = farm_name
 
+    # 농장의 farm_no 학습 (API)
+    our_farm_no = None
+    if not skip_api and farm_info["farm_id"] and cattle_rows:
+        f = db.get_farm(farm_name)
+        if f and f["farm_no"]:
+            our_farm_no = f["farm_no"]
+        else:
+            our_farm_no = fetch_farm_no_for_unique(cattle_rows[0]["cattle_no"], farm_info["farm_id"])
+            if our_farm_no:
+                db.set_farm_no(farm_name, our_farm_no)
+
     prev_doc_date = db.get_prev_doc_date(farm_name, meta.doc_date)
     inserted, updated = db.upsert_cattle_batch(cattle_rows, meta.doc_date)
     print(f"  개체: 신규 {inserted}, 갱신 {updated} (총 {len(cattle_rows)})")
@@ -78,8 +88,10 @@ def process_file(path: Path, *, skip_api: bool = False) -> None:
             if skip_api:
                 print(f"    [dry-run] {no}")
                 continue
-            info = fetch_status(no)
+            info = fetch_trace(no, our_farm_no=our_farm_no)
             db.update_cattle_status(no, info.status, info.status_date)
+            if info.acquisition_date:
+                db.update_cattle_acquisition(no, info.acquisition_date)
             print(f"    {no} → {info.status} ({info.status_date or '-'})")
     else:
         print("  (이전 처리 기록 없음 — 비교 생략)")
@@ -89,45 +101,35 @@ def process_file(path: Path, *, skip_api: bool = False) -> None:
 
 def write_output_excel() -> None:
     OUTPUT_DIR.mkdir(exist_ok=True)
-    year = datetime.now().year
-    sheet_name = f"{year}년"
+    with db.connect() as conn:
+        all_cattle = conn.execute(
+            "SELECT * FROM cattle ORDER BY acquisition_date, cattle_no"
+        ).fetchall()
+        dates = conn.execute(
+            "SELECT MIN(doc_date) AS lo, MAX(doc_date) AS hi FROM processed_docs"
+        ).fetchone()
 
-    if OUTPUT_FILE.exists():
-        from openpyxl import load_workbook
-        wb = load_workbook(OUTPUT_FILE)
-        if sheet_name in wb.sheetnames:
-            del wb[sheet_name]
+    if dates and dates["lo"] and dates["hi"]:
+        lo = datetime.strptime(dates["lo"], "%Y-%m-%d").date()
+        hi = datetime.strptime(dates["hi"], "%Y-%m-%d").date()
     else:
-        wb = Workbook()
-        # 첫 기본 시트 제거
-        default = wb.active
-        wb.remove(default)
+        today = datetime.now().date()
+        lo = hi = today
 
-    ws = wb.create_sheet(title=sheet_name)
-    headers = ["농장명", "개체식별번호", "소의종류", "성별", "출생일자", "모 개체번호",
-               "최초확인일", "최종확인일", "상태"]
-    ws.append(headers)
-
-    rows = db.get_active_cattle_all()
-    for r in rows:
-        ws.append([
-            r["farm_name"],
-            r["cattle_no"],
-            r["breed"],
-            r["sex"],
-            r["birth_date"],
-            r["mother_no"],
-            r["first_seen_doc_date"],
-            r["last_seen_doc_date"],
-            r["status"],
-        ])
-
-    widths = [10, 18, 10, 6, 12, 18, 12, 12, 8]
-    for i, w in enumerate(widths, start=1):
-        ws.column_dimensions[ws.cell(row=1, column=i).column_letter].width = w
-
-    wb.save(OUTPUT_FILE)
-    print(f"\n[저장] {OUTPUT_FILE} (시트: {sheet_name}, {len(rows)}건)")
+    cow_rows = [
+        CowRow(
+            cattle_no=r["cattle_no"],
+            sex=r["sex"],
+            birth_date=r["birth_date"],
+            acquisition_date=r["acquisition_date"] or r["first_seen_doc_date"],
+            status=r["status"],
+            status_date=r["status_date"],
+        )
+        for r in all_cattle
+    ]
+    out_path = OUTPUT_DIR / "사육소 계산(현재사용중인표).xlsx"
+    out_path.write_bytes(build_workbook(cow_rows, doc_date_range=(lo, hi)))
+    print(f"\n[저장] {out_path} ({len(cow_rows)}건)")
 
 
 def main(skip_api: bool = False) -> None:
