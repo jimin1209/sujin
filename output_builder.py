@@ -104,9 +104,14 @@ def _build_calf_sheets(
     cows: list[CowRow],
     month_cols: list[tuple[int, int, str]],
     *,
+    year: int,
     monthly_totals: dict[int, int] | None = None,
 ) -> None:
-    by_year: dict[int, list[CowRow]] = {}
+    """매입월령 ≤ 13 인 어린소를 출생연도 무관하게 단일 시트로 통합.
+
+    예) '2025년 송아지개체' 에는 24년 매입 송아지도 25년 매입 송아지도 모두 포함.
+    """
+    filtered: list[CowRow] = []
     for c in cows:
         birth = _parse_ymd(c.birth_date)
         acq = _parse_ymd(c.acquisition_date)
@@ -114,12 +119,11 @@ def _build_calf_sheets(
             continue
         if _months_diff(birth, acq) > 13:
             continue  # 성축 매입은 제외
-        by_year.setdefault(birth.year, []).append(c)
+        filtered.append(c)
 
-    for year in sorted(by_year.keys(), reverse=True):
-        sheet_name = f"{year}년 송아지개체"
-        ws = wb.create_sheet(title=sheet_name[:31])
-        _write_calf_sheet(ws, by_year[year], month_cols, monthly_totals=monthly_totals)
+    sheet_name = f"{year}년 송아지개체"
+    ws = wb.create_sheet(title=sheet_name[:31])
+    _write_calf_sheet(ws, filtered, month_cols, monthly_totals=monthly_totals)
 
 
 def _write_calf_sheet(
@@ -380,7 +384,7 @@ def build_workbook(
     wb = Workbook()
     wb.remove(wb.active)
 
-    _build_calf_sheets(wb, cows_list, month_cols, monthly_totals=monthly_totals)
+    _build_calf_sheets(wb, cows_list, month_cols, year=end.year, monthly_totals=monthly_totals)
     _build_base_list_sheet(wb, cows_list, reference_date=end, year=end.year)
 
     buf = io.BytesIO()
