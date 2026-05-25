@@ -96,7 +96,7 @@ def process_file(path: Path, *, skip_api: bool = False) -> None:
     else:
         print("  (이전 처리 기록 없음 — 비교 생략)")
 
-    db.mark_doc_processed(meta.doc_name, meta.farm_name, meta.doc_date)
+    db.mark_doc_processed(meta.doc_name, meta.farm_name, meta.doc_date, len(cattle_rows))
 
 
 def write_output_excel() -> None:
@@ -128,7 +128,8 @@ def write_output_excel() -> None:
         for r in all_cattle
     ]
     out_path = OUTPUT_DIR / "사육소 계산(현재사용중인표).xlsx"
-    out_path.write_bytes(build_workbook(cow_rows, doc_date_range=(lo, hi)))
+    monthly_totals = db.get_monthly_total_counts(hi.year)
+    out_path.write_bytes(build_workbook(cow_rows, doc_date_range=(lo, hi), monthly_totals=monthly_totals))
     print(f"\n[저장] {out_path} ({len(cow_rows)}건)")
 
 

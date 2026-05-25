@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS processed_docs (
     doc_name TEXT NOT NULL,
     farm_name TEXT NOT NULL,
     doc_date TEXT,
+    cattle_count INTEGER DEFAULT 0,
     processed_at TEXT DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (doc_name, farm_name)
 );
@@ -75,6 +76,7 @@ def init_db() -> None:
         # 마이그레이션 — 기존 DB 파일에 새 컬럼이 없으면 추가
         _ensure_column(conn, "farms", "farm_no", "TEXT")
         _ensure_column(conn, "cattle", "acquisition_date", "TEXT")
+        _ensure_column(conn, "processed_docs", "cattle_count", "INTEGER DEFAULT 0")
 
 
 def is_doc_processed(doc_name: str, farm_name: str) -> bool:
@@ -86,13 +88,41 @@ def is_doc_processed(doc_name: str, farm_name: str) -> bool:
         return cur.fetchone() is not None
 
 
-def mark_doc_processed(doc_name: str, farm_name: str, doc_date: str) -> None:
+def mark_doc_processed(doc_name: str, farm_name: str, doc_date: str, cattle_count: int = 0) -> None:
     with connect() as conn:
         conn.execute(
-            "INSERT OR IGNORE INTO processed_docs (doc_name, farm_name, doc_date) "
-            "VALUES (?, ?, ?)",
-            (doc_name, farm_name, doc_date),
+            """INSERT INTO processed_docs (doc_name, farm_name, doc_date, cattle_count)
+               VALUES (?, ?, ?, ?)
+               ON CONFLICT(doc_name, farm_name) DO UPDATE SET
+                 doc_date=excluded.doc_date,
+                 cattle_count=excluded.cattle_count""",
+            (doc_name, farm_name, doc_date, cattle_count),
         )
+
+
+def get_monthly_total_counts(year: int) -> dict[int, int]:
+    """그 연도 1~12월 별, 모든 농장의 그 월 최신 doc_date 의 cattle_count 합.
+
+    같은 농장이 같은 월에 여러 doc 면 가장 최근 것만 사용.
+    """
+    result: dict[int, int] = {m: 0 for m in range(1, 13)}
+    with connect() as conn:
+        cur = conn.execute(
+            """SELECT farm_name, substr(doc_date, 6, 2) AS mm, doc_date, cattle_count
+               FROM processed_docs
+               WHERE substr(doc_date, 1, 4) = ?
+               ORDER BY farm_name, doc_date DESC""",
+            (str(year),),
+        )
+        seen: set[tuple[str, str]] = set()
+        for row in cur:
+            key = (row["farm_name"], row["mm"])
+            if key in seen:
+                continue
+            seen.add(key)
+            month = int(row["mm"])
+            result[month] += row["cattle_count"] or 0
+    return result
 
 
 def upsert_farm(farm_name: str, farm_id: str | None, owner: str | None, address: str | None) -> None:

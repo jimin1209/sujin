@@ -103,6 +103,8 @@ def _build_calf_sheets(
     wb: Workbook,
     cows: list[CowRow],
     month_cols: list[tuple[int, int, str]],
+    *,
+    monthly_totals: dict[int, int] | None = None,
 ) -> None:
     by_year: dict[int, list[CowRow]] = {}
     for c in cows:
@@ -117,10 +119,13 @@ def _build_calf_sheets(
     for year in sorted(by_year.keys(), reverse=True):
         sheet_name = f"{year}년 송아지개체"
         ws = wb.create_sheet(title=sheet_name[:31])
-        _write_calf_sheet(ws, by_year[year], month_cols)
+        _write_calf_sheet(ws, by_year[year], month_cols, monthly_totals=monthly_totals)
 
 
-def _write_calf_sheet(ws, rows: list[CowRow], month_cols: list[tuple[int, int, str]]) -> None:
+def _write_calf_sheet(
+    ws, rows: list[CowRow], month_cols: list[tuple[int, int, str]],
+    *, monthly_totals: dict[int, int] | None = None,
+) -> None:
     base_headers = ["NO.", "개체식별번호", "성별", "출생일자", "매입일", "매입월령"]
     month_labels = [lbl for _, _, lbl in month_cols]
     all_headers = base_headers + month_labels
@@ -236,8 +241,9 @@ def _write_calf_sheet(ws, rows: list[CowRow], month_cols: list[tuple[int, int, s
     r_total = t2_header_row + 1
     ws.cell(row=r_total, column=first_month_col - 1, value="월사육두수").font = Font(bold=True)
     ws.cell(row=r_total, column=first_month_col - 1).fill = HEADER_FILL
-    for i in range(n_months):
-        ws.cell(row=r_total, column=first_month_col + i, value=0)
+    for i, (y, m, _) in enumerate(month_cols):
+        val = (monthly_totals or {}).get(m, 0)
+        ws.cell(row=r_total, column=first_month_col + i, value=val)
     ws.cell(
         row=r_total, column=total_col,
         value=f"=SUMPRODUCT(--({first_letter}{r_total}:{last_letter}{r_total}>0),"
@@ -365,6 +371,7 @@ def build_workbook(
     cows: Iterable[CowRow],
     *,
     doc_date_range: tuple[date, date],
+    monthly_totals: dict[int, int] | None = None,
 ) -> bytes:
     start, end = doc_date_range
     month_cols = _generate_month_columns(start, end)
@@ -373,7 +380,7 @@ def build_workbook(
     wb = Workbook()
     wb.remove(wb.active)
 
-    _build_calf_sheets(wb, cows_list, month_cols)
+    _build_calf_sheets(wb, cows_list, month_cols, monthly_totals=monthly_totals)
     _build_base_list_sheet(wb, cows_list, reference_date=end, year=end.year)
 
     buf = io.BytesIO()

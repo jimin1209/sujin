@@ -322,7 +322,7 @@ if uploads:
             else:
                 log("  (이전 처리 기록 없음 — 비교 생략)")
 
-            db.mark_doc_processed(meta.doc_name, meta.farm_name, meta.doc_date)
+            db.mark_doc_processed(meta.doc_name, meta.farm_name, meta.doc_date, len(cattle_rows))
             step += 1
             progress.progress(min(step / max(total_steps, 1), 1.0),
                               text=f"({idx+1}/{len(ordered)}) 완료")
@@ -425,7 +425,8 @@ if st.session_state.get("processed"):
         for r in all_cattle
     ]
 
-    xlsx_bytes = build_workbook(cow_rows, doc_date_range=(lo, hi))
+    monthly_totals = db.get_monthly_total_counts(hi.year)
+    xlsx_bytes = build_workbook(cow_rows, doc_date_range=(lo, hi), monthly_totals=monthly_totals)
     st.download_button(
         "📥 사육소 계산(현재사용중인표).xlsx 다운로드",
         data=xlsx_bytes,
