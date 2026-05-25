@@ -302,20 +302,22 @@ def build_workbook(
                 acq_mo,
             ]
 
-            # 월별 카운터: 매입월 = 1, 다음월 = 2, ... 도축/폐사/양수도 된 월까지
-            counter = 0
+            # 셀 값 = 그 월 시점의 개월령
+            #   매입월 셀 = 매입월령 (예: 매입월령 5 이면 매입한 달 = 5)
+            #   다음 달 = 매입월령 + 1
+            #   매입 이전 = 빈칸
+            #   도축/폐사/양수도 된 월까지만 채우고 그 이후 = 빈칸
             for y, m, _ in month_cols:
                 cell_month = date(y, m, 1)
-                cell_month_end = date(y + (1 if m == 12 else 0), 1 if m == 12 else m + 1, 1)
-                is_acquired = acq < cell_month_end
+                diff = (y - acq.year) * 12 + (m - acq.month)
+                is_acquired = diff >= 0
                 is_alive = (
                     end_dt is None
                     or cell_month < date(end_dt.year, end_dt.month, 1)
                     or (end_dt.year == y and end_dt.month == m)
                 )
-                if is_acquired:
-                    counter += 1
-                    row.append(counter if is_alive else None)
+                if is_acquired and is_alive:
+                    row.append(acq_mo + diff)
                 else:
                     row.append(None)
 
