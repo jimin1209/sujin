@@ -176,11 +176,11 @@ def update_cattle_status(cattle_no: str, status: str, status_date: str | None) -
 
 
 def get_active_cattle_all() -> list[sqlite3.Row]:
-    """현재 도축/폐사가 아닌 모든 농장 사육 중인 소."""
+    """현재 도축/폐사/양수도가 아닌 모든 농장 사육 중인 소."""
     with connect() as conn:
         cur = conn.execute(
             """SELECT * FROM cattle
-               WHERE status NOT IN ('도축', '폐사')
+               WHERE status NOT IN ('도축', '폐사', '양수도')
                ORDER BY farm_name, cattle_no"""
         )
         return cur.fetchall()
