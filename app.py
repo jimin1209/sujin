@@ -28,16 +28,41 @@ try:
 except Exception:
     pass
 
+import cache as cache_store  # noqa: E402
 import db  # noqa: E402
 from api_client import TraceInfo, fetch_status  # noqa: E402
 from excel_parser import parse_farm_file, parse_filename  # noqa: E402
 
 
-# API 응답 캐시 — 같은 개체는 24h 동안 재호출 안 함.
-# 모든 사용자/세션이 공유 (Streamlit Cloud 인스턴스 단위).
-@st.cache_data(ttl=86400, show_spinner=False)
-def cached_fetch_status(cattle_no: str) -> TraceInfo:
-    return fetch_status(cattle_no)
+def _get_secret(key: str) -> str | None:
+    val = os.environ.get(key)
+    if val:
+        return val
+    try:
+        return st.secrets.get(key)
+    except Exception:
+        return None
+
+
+# 영구 캐시 — 깃 레포의 cache/cattle_cache.json 를 메모리에 로드.
+# 새로 조회된 개체는 메모리에 누적, dirty 플래그로 추적.
+if "cattle_cache" not in st.session_state:
+    st.session_state.cattle_cache = cache_store.load()
+    st.session_state.cache_dirty = False
+
+
+def lookup_status(cattle_no: str) -> TraceInfo:
+    """캐시 우선 조회 → 없으면 API 호출 후 캐시에 적재."""
+    hit = st.session_state.cattle_cache.get(cattle_no)
+    if hit:
+        return TraceInfo(status=hit["status"], status_date=hit.get("status_date"))
+    info = fetch_status(cattle_no)
+    st.session_state.cattle_cache[cattle_no] = {
+        "status": info.status,
+        "status_date": info.status_date,
+    }
+    st.session_state.cache_dirty = True
+    return info
 
 st.set_page_config(page_title="수진쨩노 안심농장 사육수 계산", page_icon="🐄", layout="wide")
 st.title("🐄 수진쨩노 안심농장 사육수 계산")
@@ -107,13 +132,32 @@ with st.sidebar:
         st.warning("API 키가 설정되지 않았습니다. 관리자에게 문의하세요.", icon="⚠️")
 
     st.divider()
+    st.metric("영구 캐시 (조회 완료 개체)", len(st.session_state.cattle_cache))
+    if st.session_state.cache_dirty:
+        new_count = len(st.session_state.cattle_cache) - sum(
+            1 for k in cache_store.load() if k in st.session_state.cattle_cache
+        )
+        st.warning(f"미저장 변경 {new_count}건", icon="📝")
+        if st.button("💾 GitHub 에 캐시 저장", use_container_width=True, type="primary"):
+            token = _get_secret("GITHUB_TOKEN")
+            repo = _get_secret("GITHUB_REPO") or "jimin1209/sujin"
+            if not token:
+                st.error("GITHUB_TOKEN 이 설정되지 않았습니다. Streamlit Secrets 확인.")
+            else:
+                try:
+                    cache_store.save_local(st.session_state.cattle_cache)
+                    cache_store.commit_to_github(
+                        st.session_state.cattle_cache, repo=repo, token=token,
+                    )
+                    st.session_state.cache_dirty = False
+                    st.success(f"저장 완료 ({len(st.session_state.cattle_cache)}건)")
+                except Exception as e:
+                    st.error(f"실패: {e}")
+
+    st.divider()
     if st.button("🔄 세션 초기화 (업로드 기록 삭제)", use_container_width=True):
         _reset_session_db()
         st.success("초기화 완료. 페이지를 새로고침 하세요.")
-    if st.button("🧹 API 캐시 비우기", use_container_width=True,
-                 help="같은 개체 재조회 시 강제로 API 호출"):
-        cached_fetch_status.clear()
-        st.success("캐시 비움")
 
 
 # ────────────────────────────────────────────────────────────────────
@@ -210,7 +254,7 @@ if uploads:
                 log(f"  전월({prev_doc_date}) 대비 사라진 개체: {len(missing)}")
                 if use_api:
                     for no in missing:
-                        info = cached_fetch_status(no)
+                        info = lookup_status(no)
                         db.update_cattle_status(no, info.status, info.status_date)
                         api_done += 1
                         step += 1

@@ -27,8 +27,21 @@ streamlit run app.py
 4. **Advanced settings → Secrets** 에 아래 추가:
    ```toml
    LIVESTOCK_API_KEY = "여기에 공공데이터포털 서비스키"
+   GITHUB_TOKEN = "ghp_..."           # 영구 캐시 저장용 (아래 참고)
+   GITHUB_REPO = "jimin1209/sujin"    # 캐시 커밋 대상 레포
    ```
 5. **Deploy** → 고정 URL 발급. 비개발자에게 이 URL만 공유.
+
+### GITHUB_TOKEN 발급 (영구 캐시용)
+
+API 호출 결과를 GitHub 레포(`cache/cattle_cache.json`)에 저장해서, 한 번 조회한 개체는 다시 호출하지 않습니다 (1일 1,000건 한도 절약).
+
+1. https://github.com/settings/personal-access-tokens/new (Fine-grained tokens)
+2. Repository access → **Only select repositories** → `sujin` 선택
+3. Repository permissions → **Contents: Read and write**
+4. Generate → `ghp_...` 토큰 복사 → Streamlit Secrets 의 `GITHUB_TOKEN` 에 붙여넣기
+
+토큰을 안 넣어도 앱은 동작하지만 세션 종료 시 캐시가 사라져 매번 다시 호출됩니다.
 
 ## 파일 구조
 
