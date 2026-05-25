@@ -63,9 +63,18 @@ def connect():
         conn.close()
 
 
+def _ensure_column(conn: sqlite3.Connection, table: str, column: str, col_type: str) -> None:
+    cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
+    if column not in cols:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+
+
 def init_db() -> None:
     with connect() as conn:
         conn.executescript(SCHEMA)
+        # 마이그레이션 — 기존 DB 파일에 새 컬럼이 없으면 추가
+        _ensure_column(conn, "farms", "farm_no", "TEXT")
+        _ensure_column(conn, "cattle", "acquisition_date", "TEXT")
 
 
 def is_doc_processed(doc_name: str, farm_name: str) -> bool:
