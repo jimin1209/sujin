@@ -105,11 +105,15 @@ def _build_calf_sheets(
     month_cols: list[tuple[int, int, str]],
     *,
     year: int,
+    reference_date: date,
     monthly_totals: dict[int, int] | None = None,
 ) -> None:
-    """매입월령 ≤ 13 인 어린소를 출생연도 무관하게 단일 시트로 통합.
+    """기준일 시점에 우리 농장에서 사육 중인 어린소(매입월령 ≤ 13)만 단일 시트로.
 
-    예) '2025년 송아지개체' 에는 24년 매입 송아지도 25년 매입 송아지도 모두 포함.
+    포함 조건:
+      - 매입월령 ≤ 13 (성축 매입 제외)
+      - 매입일 ≤ 기준일
+      - (status 가 도축/폐사/양수도 면) status_date > 기준일
     """
     filtered: list[CowRow] = []
     for c in cows:
@@ -118,7 +122,12 @@ def _build_calf_sheets(
         if not birth or not acq:
             continue
         if _months_diff(birth, acq) > 13:
-            continue  # 성축 매입은 제외
+            continue
+        if acq > reference_date:
+            continue
+        sdate = _parse_ymd(c.status_date)
+        if c.status in END_STATUSES and sdate and sdate <= reference_date:
+            continue
         filtered.append(c)
 
     sheet_name = f"{year}년 송아지개체"
@@ -375,17 +384,24 @@ def build_workbook(
     cows: Iterable[CowRow],
     *,
     doc_date_range: tuple[date, date],
+    reference_date: date | None = None,
     monthly_totals: dict[int, int] | None = None,
 ) -> bytes:
     start, end = doc_date_range
+    if reference_date is None:
+        reference_date = date.today()
     month_cols = _generate_month_columns(start, end)
     cows_list = list(cows)
+    year = reference_date.year
 
     wb = Workbook()
     wb.remove(wb.active)
 
-    _build_calf_sheets(wb, cows_list, month_cols, year=end.year, monthly_totals=monthly_totals)
-    _build_base_list_sheet(wb, cows_list, reference_date=end, year=end.year)
+    _build_calf_sheets(
+        wb, cows_list, month_cols,
+        year=year, reference_date=reference_date, monthly_totals=monthly_totals,
+    )
+    _build_base_list_sheet(wb, cows_list, reference_date=reference_date, year=year)
 
     buf = io.BytesIO()
     wb.save(buf)

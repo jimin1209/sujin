@@ -162,6 +162,12 @@ def _build_output_xlsx_legacy(rows: list) -> bytes:
 # ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.header("⚙️ 옵션")
+    reference_date = st.date_input(
+        "기준일",
+        value=datetime.now().date(),
+        help="이 날짜에 우리 농장에서 사육 중인 어린소만 송아지 시트에 포함."
+        " 현재월령도 이 날짜로 계산. 비우면 오늘 날짜.",
+    )
     use_api = st.toggle(
         "이력조회 API 호출",
         value=True,
@@ -425,8 +431,13 @@ if st.session_state.get("processed"):
         for r in all_cattle
     ]
 
-    monthly_totals = db.get_monthly_total_counts(hi.year)
-    xlsx_bytes = build_workbook(cow_rows, doc_date_range=(lo, hi), monthly_totals=monthly_totals)
+    monthly_totals = db.get_monthly_total_counts(reference_date.year)
+    xlsx_bytes = build_workbook(
+        cow_rows,
+        doc_date_range=(lo, hi),
+        reference_date=reference_date,
+        monthly_totals=monthly_totals,
+    )
     st.download_button(
         "📥 사육소 계산(현재사용중인표).xlsx 다운로드",
         data=xlsx_bytes,

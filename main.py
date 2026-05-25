@@ -128,8 +128,14 @@ def write_output_excel() -> None:
         for r in all_cattle
     ]
     out_path = OUTPUT_DIR / "사육소 계산(현재사용중인표).xlsx"
-    monthly_totals = db.get_monthly_total_counts(hi.year)
-    out_path.write_bytes(build_workbook(cow_rows, doc_date_range=(lo, hi), monthly_totals=monthly_totals))
+    ref_date = datetime.now().date()
+    monthly_totals = db.get_monthly_total_counts(ref_date.year)
+    out_path.write_bytes(build_workbook(
+        cow_rows,
+        doc_date_range=(lo, hi),
+        reference_date=ref_date,
+        monthly_totals=monthly_totals,
+    ))
     print(f"\n[저장] {out_path} ({len(cow_rows)}건)")
 
 
