@@ -10,6 +10,7 @@ from __future__ import annotations
 import io
 import os
 import tempfile
+import threading
 from datetime import datetime
 from pathlib import Path
 
@@ -44,24 +45,38 @@ def _get_secret(key: str) -> str | None:
         return None
 
 
-# 영구 캐시 — 깃 레포의 cache/cattle_cache.json 를 메모리에 로드.
-# 새로 조회된 개체는 메모리에 누적, dirty 플래그로 추적.
-if "cattle_cache" not in st.session_state:
-    st.session_state.cattle_cache = cache_store.load()
-    st.session_state.cache_dirty = False
+# 영구 캐시 — 모든 사용자/세션이 공유 (앱 인스턴스 단위).
+# cache/cattle_cache.json 에서 부팅 시 로드, 새 조회는 메모리에 누적.
+@st.cache_resource(show_spinner=False)
+def _shared_cache() -> dict:
+    return cache_store.load()
+
+
+@st.cache_resource(show_spinner=False)
+def _cache_lock() -> threading.Lock:
+    return threading.Lock()
+
+
+@st.cache_resource(show_spinner=False)
+def _dirty_flag() -> dict:
+    # 단순 mutable 컨테이너로 dirty 플래그 공유
+    return {"dirty": False}
 
 
 def lookup_status(cattle_no: str) -> TraceInfo:
-    """캐시 우선 조회 → 없으면 API 호출 후 캐시에 적재."""
-    hit = st.session_state.cattle_cache.get(cattle_no)
+    """캐시 우선 조회 → 없으면 API 호출 후 공유 캐시에 적재 + 로컬 파일 저장."""
+    cache = _shared_cache()
+    hit = cache.get(cattle_no)
     if hit:
         return TraceInfo(status=hit["status"], status_date=hit.get("status_date"))
     info = fetch_status(cattle_no)
-    st.session_state.cattle_cache[cattle_no] = {
-        "status": info.status,
-        "status_date": info.status_date,
-    }
-    st.session_state.cache_dirty = True
+    with _cache_lock():
+        cache[cattle_no] = {"status": info.status, "status_date": info.status_date}
+        _dirty_flag()["dirty"] = True
+        try:
+            cache_store.save_local(cache)
+        except Exception:
+            pass
     return info
 
 st.set_page_config(page_title="수진쨩노 안심농장 사육수 계산", page_icon="🐄", layout="wide")
@@ -132,12 +147,11 @@ with st.sidebar:
         st.warning("API 키가 설정되지 않았습니다. 관리자에게 문의하세요.", icon="⚠️")
 
     st.divider()
-    st.metric("영구 캐시 (조회 완료 개체)", len(st.session_state.cattle_cache))
-    if st.session_state.cache_dirty:
-        new_count = len(st.session_state.cattle_cache) - sum(
-            1 for k in cache_store.load() if k in st.session_state.cattle_cache
-        )
-        st.warning(f"미저장 변경 {new_count}건", icon="📝")
+    shared_cache = _shared_cache()
+    dirty = _dirty_flag()["dirty"]
+    st.metric("영구 캐시 (조회 완료 개체)", len(shared_cache))
+    if dirty:
+        st.warning("로컬에는 저장됨 / GitHub 미반영", icon="📝")
         if st.button("💾 GitHub 에 캐시 저장", use_container_width=True, type="primary"):
             token = _get_secret("GITHUB_TOKEN")
             repo = _get_secret("GITHUB_REPO") or "jimin1209/sujin"
@@ -145,12 +159,9 @@ with st.sidebar:
                 st.error("GITHUB_TOKEN 이 설정되지 않았습니다. Streamlit Secrets 확인.")
             else:
                 try:
-                    cache_store.save_local(st.session_state.cattle_cache)
-                    cache_store.commit_to_github(
-                        st.session_state.cattle_cache, repo=repo, token=token,
-                    )
-                    st.session_state.cache_dirty = False
-                    st.success(f"저장 완료 ({len(st.session_state.cattle_cache)}건)")
+                    cache_store.commit_to_github(shared_cache, repo=repo, token=token)
+                    _dirty_flag()["dirty"] = False
+                    st.success(f"저장 완료 ({len(shared_cache)}건)")
                 except Exception as e:
                     st.error(f"실패: {e}")
 
