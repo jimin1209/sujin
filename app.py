@@ -15,9 +15,13 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
 from openpyxl import Workbook
 
-# Streamlit Cloud 의 secrets 에 API 키가 있으면 환경변수로 주입 (없으면 .env 사용)
+# 로컬: 프로젝트 폴더의 .env 명시적으로 로드
+load_dotenv(Path(__file__).parent / ".env")
+
+# Streamlit Cloud: secrets 에 API 키가 있으면 환경변수로 주입
 try:
     if "LIVESTOCK_API_KEY" in st.secrets:
         os.environ["LIVESTOCK_API_KEY"] = st.secrets["LIVESTOCK_API_KEY"]
