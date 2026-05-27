@@ -132,12 +132,12 @@ def _build_calf_sheets(
 
     sheet_name = f"{year}년 송아지개체"
     ws = wb.create_sheet(title=sheet_name[:31])
-    _write_calf_sheet(ws, filtered, month_cols, monthly_totals=monthly_totals)
+    _write_calf_sheet(ws, filtered, month_cols, year=year, monthly_totals=monthly_totals)
 
 
 def _write_calf_sheet(
     ws, rows: list[CowRow], month_cols: list[tuple[int, int, str]],
-    *, monthly_totals: dict[int, int] | None = None,
+    *, year: int, monthly_totals: dict[int, int] | None = None,
 ) -> None:
     base_headers = ["NO.", "개체식별번호", "성별", "출생일자", "매입일", "매입월령"]
     month_labels = [lbl for _, _, lbl in month_cols]
@@ -192,13 +192,27 @@ def _write_calf_sheet(
     n_cows = len(sorted_rows)
     if n_cows == 0:
         return
-    data_last_row = 1 + n_cows  # 1=header row, then data
+    data_last_row = 1 + n_cows
     n_months = len(month_cols)
     first_month_col = 7  # G
     last_month_col = first_month_col + n_months - 1
-    total_col = last_month_col + 1
 
-    # ── COUNTIF 자동 합계 (비어있지 않은 셀 개수)
+    # 기준 연도 1~12월 컬럼 인덱스 매핑 (송아지 시트 데이터 컬럼 기준)
+    year_month_to_col: dict[int, int] = {}
+    for i, (y, m, _) in enumerate(month_cols):
+        if y == year:
+            year_month_to_col[m] = first_month_col + i
+    if not year_month_to_col:
+        return  # 그 year 의 데이터가 없으면 통계 skip
+
+    # year 1~12월 컬럼이 연속되어 있다고 가정 (build_workbook 에서 보강했음)
+    summary_first_col = min(year_month_to_col.values())
+    summary_last_col = max(year_month_to_col.values())
+    total_col = summary_last_col + 1
+    first_letter = get_column_letter(summary_first_col)
+    last_letter = get_column_letter(summary_last_col)
+
+    # ── COUNTIF 자동 합계 (전체 데이터 컬럼 범위)
     countif_row = data_last_row + 2
     for c_idx in range(first_month_col, last_month_col + 1):
         col_letter = get_column_letter(c_idx)
@@ -207,35 +221,31 @@ def _write_calf_sheet(
             value=f'=COUNTIF({col_letter}2:{col_letter}{data_last_row},"<>")',
         )
 
-    # ── 표1: 6-13개월 / 5이하 어린소 / 합계
+    # ── 표1: 6-13개월 / 5이하 어린소 / 합계  (year 의 1~12월만)
     t1_header_row = countif_row + 3
-    _set_header(ws.cell(row=t1_header_row, column=first_month_col - 1), "")
-    for i, (_, m, _) in enumerate(month_cols):
-        _set_header(ws.cell(row=t1_header_row, column=first_month_col + i), f"{m}월")
+    _set_header(ws.cell(row=t1_header_row, column=summary_first_col - 1), "")
+    for m in range(1, 13):
+        col = year_month_to_col[m]
+        _set_header(ws.cell(row=t1_header_row, column=col), f"{m}월")
     _set_header(ws.cell(row=t1_header_row, column=total_col), "합계")
 
     r6_13 = t1_header_row + 1
     r5_below = t1_header_row + 2
     r_all = t1_header_row + 3
-    ws.cell(row=r6_13, column=first_month_col - 1, value="6-13개월육성우").font = Font(bold=True)
-    ws.cell(row=r5_below, column=first_month_col - 1, value="5개월이하어린소").font = Font(bold=True)
-    ws.cell(row=r_all, column=first_month_col - 1, value="1-13개월전체합계").font = Font(bold=True)
-    ws.cell(row=r_all, column=first_month_col - 1).fill = HEADER_FILL
+    ws.cell(row=r6_13, column=summary_first_col - 1, value="6-13개월육성우").font = Font(bold=True)
+    ws.cell(row=r5_below, column=summary_first_col - 1, value="5개월이하어린소").font = Font(bold=True)
+    ws.cell(row=r_all, column=summary_first_col - 1, value="1-13개월전체합계").font = Font(bold=True)
+    ws.cell(row=r_all, column=summary_first_col - 1).fill = HEADER_FILL
 
-    for i in range(n_months):
-        col = first_month_col + i
-        col_letter = get_column_letter(col)
-        rng = f'{col_letter}2:{col_letter}{data_last_row}'
+    for m in range(1, 13):
+        col = year_month_to_col[m]
+        L = get_column_letter(col)
+        rng = f'{L}2:{L}{data_last_row}'
         ws.cell(row=r6_13, column=col, value=f'=COUNTIFS({rng},">=6",{rng},"<=13")')
         ws.cell(row=r5_below, column=col, value=f'=COUNTIFS({rng},"<=5")')
-        ws.cell(
-            row=r_all, column=col,
-            value=f"={get_column_letter(col)}{r6_13}+{get_column_letter(col)}{r5_below}",
-        ).fill = HEADER_FILL
+        ws.cell(row=r_all, column=col,
+                value=f"={L}{r6_13}+{L}{r5_below}").fill = HEADER_FILL
 
-    # 합계 셀
-    first_letter = get_column_letter(first_month_col)
-    last_letter = get_column_letter(last_month_col)
     for r_idx in (r6_13, r5_below, r_all):
         ws.cell(
             row=r_idx, column=total_col,
@@ -244,19 +254,19 @@ def _write_calf_sheet(
         )
     ws.cell(row=r_all, column=total_col).fill = HEADER_FILL
 
-    # ── 표2: 월사육두수 (사용자 수동 입력)
+    # ── 표2: 월사육두수
     t2_header_row = r_all + 3
-    _set_header(ws.cell(row=t2_header_row, column=first_month_col - 1), "구 분")
-    for i, (_, m, _) in enumerate(month_cols):
-        _set_header(ws.cell(row=t2_header_row, column=first_month_col + i), f"{m:02d}월")
+    _set_header(ws.cell(row=t2_header_row, column=summary_first_col - 1), "구 분")
+    for m in range(1, 13):
+        _set_header(ws.cell(row=t2_header_row, column=year_month_to_col[m]), f"{m:02d}월")
     _set_header(ws.cell(row=t2_header_row, column=total_col), "합계")
 
     r_total = t2_header_row + 1
-    ws.cell(row=r_total, column=first_month_col - 1, value="월사육두수").font = Font(bold=True)
-    ws.cell(row=r_total, column=first_month_col - 1).fill = HEADER_FILL
-    for i, (y, m, _) in enumerate(month_cols):
+    ws.cell(row=r_total, column=summary_first_col - 1, value="월사육두수").font = Font(bold=True)
+    ws.cell(row=r_total, column=summary_first_col - 1).fill = HEADER_FILL
+    for m in range(1, 13):
         val = (monthly_totals or {}).get(m, 0)
-        ws.cell(row=r_total, column=first_month_col + i, value=val)
+        ws.cell(row=r_total, column=year_month_to_col[m], value=val)
     ws.cell(
         row=r_total, column=total_col,
         value=f"=SUMPRODUCT(--({first_letter}{r_total}:{last_letter}{r_total}>0),"
@@ -265,9 +275,9 @@ def _write_calf_sheet(
 
     # ── 표3: 사육두수 분석 (육성우 0.5마리 절사)
     t3_header_row = r_total + 3
-    _set_header(ws.cell(row=t3_header_row, column=first_month_col - 1), "(육성우 0.5마리 절사)")
-    for i, (_, m, _) in enumerate(month_cols):
-        _set_header(ws.cell(row=t3_header_row, column=first_month_col + i), f"{m}월")
+    _set_header(ws.cell(row=t3_header_row, column=summary_first_col - 1), "(육성우 0.5마리 절사)")
+    for m in range(1, 13):
+        _set_header(ws.cell(row=t3_header_row, column=year_month_to_col[m]), f"{m}월")
     _set_header(ws.cell(row=t3_header_row, column=total_col), "합계")
 
     r_under5 = t3_header_row + 1
@@ -276,17 +286,17 @@ def _write_calf_sheet(
     r_grand = t3_header_row + 4
     r_over50 = t3_header_row + 5
 
-    ws.cell(row=r_under5, column=first_month_col - 1, value="월사육두수-5개월이하").font = Font(bold=True)
-    ws.cell(row=r_14plus, column=first_month_col - 1, value="14개월이상성축").font = Font(bold=True)
-    ws.cell(row=r_grow_half, column=first_month_col - 1, value="6-13개월육성우(1/2)").font = Font(bold=True)
-    ws.cell(row=r_grand, column=first_month_col - 1, value="총 사육두수 합계").font = Font(bold=True)
-    ws.cell(row=r_grand, column=first_month_col - 1).fill = HEADER_FILL
-    ws.cell(row=r_over50, column=first_month_col - 1, value="매월 50두 초과두수").font = Font(bold=True)
+    ws.cell(row=r_under5, column=summary_first_col - 1, value="월사육두수-5개월이하").font = Font(bold=True)
+    ws.cell(row=r_14plus, column=summary_first_col - 1, value="14개월이상성축").font = Font(bold=True)
+    ws.cell(row=r_grow_half, column=summary_first_col - 1, value="6-13개월육성우(1/2)").font = Font(bold=True)
+    ws.cell(row=r_grand, column=summary_first_col - 1, value="총 사육두수 합계").font = Font(bold=True)
+    ws.cell(row=r_grand, column=summary_first_col - 1).fill = HEADER_FILL
+    ws.cell(row=r_over50, column=summary_first_col - 1, value="매월 50두 초과두수").font = Font(bold=True)
 
-    for i in range(n_months):
-        col = first_month_col + i
+    for m in range(1, 13):
+        col = year_month_to_col[m]
         L = get_column_letter(col)
-        ws.cell(row=r_under5, column=col, value=f"={L}{r_total}-{L}{r_5_below if False else r5_below}")
+        ws.cell(row=r_under5, column=col, value=f"={L}{r_total}-{L}{r5_below}")
         ws.cell(row=r_14plus, column=col, value=f"={L}{r_under5}-{L}{r6_13}")
         ws.cell(row=r_grow_half, column=col, value=f"=ROUNDDOWN({L}{r6_13}/2,0)")
         ws.cell(row=r_grand, column=col,
@@ -390,9 +400,12 @@ def build_workbook(
     start, end = doc_date_range
     if reference_date is None:
         reference_date = date.today()
+    year = reference_date.year
+    # 송아지 시트 컬럼 범위에 기준연도 1~12월 항상 포함
+    start = min(start, date(year, 1, 1))
+    end = max(end, date(year, 12, 1))
     month_cols = _generate_month_columns(start, end)
     cows_list = list(cows)
-    year = reference_date.year
 
     wb = Workbook()
     wb.remove(wb.active)
