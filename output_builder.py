@@ -108,10 +108,10 @@ def _build_calf_sheets(
     reference_date: date,
     monthly_totals: dict[int, int] | None = None,
 ) -> None:
-    """기준일 시점에 우리 농장에서 사육 중인 어린소(매입월령 ≤ 13)만 단일 시트로.
+    """기준일 시점에 13개월 이하인 송아지만 단일 시트로.
 
     포함 조건:
-      - 매입월령 ≤ 13 (성축 매입 제외)
+      - 기준일 시점 개월령 ≤ 13 (송아지)
       - 매입일 ≤ 기준일
       - (status 가 도축/폐사/양수도 면) status_date > 기준일
     """
@@ -121,8 +121,9 @@ def _build_calf_sheets(
         acq = _parse_ymd(c.acquisition_date)
         if not birth or not acq:
             continue
-        if _months_diff(birth, acq) > 13:
-            continue
+        current_mo = _months_diff(birth, reference_date)
+        if current_mo > 13:
+            continue  # 기준일에 이미 성축이면 송아지 아님
         if acq > reference_date:
             continue
         sdate = _parse_ymd(c.status_date)
