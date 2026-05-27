@@ -1,1 +1,2387 @@
-{}
+{
+  "002118419220": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-19"
+  },
+  "002125034354": {
+    "acquisition_date": "2021-04-30",
+    "status": "도축",
+    "status_date": "2025-11-21"
+  },
+  "002140088283": {
+    "acquisition_date": "2019-10-16",
+    "status": "사육",
+    "status_date": null
+  },
+  "002142623256": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-11-27"
+  },
+  "002142993330": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-11-07"
+  },
+  "002144205379": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-05"
+  },
+  "002144205643": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2025-06-05"
+  },
+  "002145259065": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-11-28"
+  },
+  "002145944599": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-05-09"
+  },
+  "002145946300": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-04-11"
+  },
+  "002145946334": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-07-25"
+  },
+  "002145946342": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-05"
+  },
+  "002149601753": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-07-18"
+  },
+  "002151135771": {
+    "acquisition_date": "2024-08-13",
+    "status": "도축",
+    "status_date": "2026-01-08"
+  },
+  "002151135819": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2025-08-29"
+  },
+  "002151137450": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-07-14"
+  },
+  "002151137492": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2026-02-11"
+  },
+  "002151137652": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-19"
+  },
+  "002153424034": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-08-22"
+  },
+  "002153426739": {
+    "acquisition_date": "2020-12-01",
+    "status": "사육",
+    "status_date": null
+  },
+  "002153427864": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-07-04"
+  },
+  "002153527542": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-06-26"
+  },
+  "002153543406": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-23"
+  },
+  "002154530776": {
+    "acquisition_date": "2024-08-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002155436110": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-08-14"
+  },
+  "002155503340": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-22"
+  },
+  "002155503366": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-04-30"
+  },
+  "002155503446": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-05-08"
+  },
+  "002155503454": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-06-20"
+  },
+  "002155503825": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-17"
+  },
+  "002156923897": {
+    "acquisition_date": "2025-04-16",
+    "status": "도축",
+    "status_date": "2025-10-24"
+  },
+  "002157750771": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-04-29"
+  },
+  "002157837937": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-24"
+  },
+  "002157842735": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-25"
+  },
+  "002157861278": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2026-01-09"
+  },
+  "002158817496": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-09-17"
+  },
+  "002158820336": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-19"
+  },
+  "002158827455": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-06-25"
+  },
+  "002158926067": {
+    "acquisition_date": "2024-10-04",
+    "status": "도축",
+    "status_date": "2025-04-24"
+  },
+  "002159524154": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-09-25"
+  },
+  "002159718393": {
+    "acquisition_date": "2025-04-16",
+    "status": "도축",
+    "status_date": "2025-06-27"
+  },
+  "002160197307": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2026-01-12"
+  },
+  "002160535647": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-06-18"
+  },
+  "002160552082": {
+    "acquisition_date": "2024-10-04",
+    "status": "도축",
+    "status_date": "2025-04-18"
+  },
+  "002160555415": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-05-08"
+  },
+  "002161075547": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-14"
+  },
+  "002161075563": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-21"
+  },
+  "002161944854": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-08-01"
+  },
+  "002162780981": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002162800645": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002163252353": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002163252361": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002163252370": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002163255022": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2026-01-23"
+  },
+  "002163255039": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2025-09-12"
+  },
+  "002163255047": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2026-01-16"
+  },
+  "002163255055": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2026-04-21"
+  },
+  "002163596943": {
+    "acquisition_date": "2024-07-04",
+    "status": "도축",
+    "status_date": "2025-12-02"
+  },
+  "002164090723": {
+    "acquisition_date": "2024-10-04",
+    "status": "도축",
+    "status_date": "2025-12-04"
+  },
+  "002164619122": {
+    "acquisition_date": "2024-08-19",
+    "status": "도축",
+    "status_date": "2026-04-17"
+  },
+  "002165382013": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-09-24"
+  },
+  "002168084366": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-31"
+  },
+  "002168084382": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002168084399": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002168086970": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-02-04"
+  },
+  "002168888717": {
+    "acquisition_date": "2021-10-05",
+    "status": "사육",
+    "status_date": null
+  },
+  "002169380107": {
+    "acquisition_date": "2025-06-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002169439368": {
+    "acquisition_date": "2021-12-06",
+    "status": "도축",
+    "status_date": "2025-07-17"
+  },
+  "002170688851": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2025-10-16"
+  },
+  "002171721298": {
+    "acquisition_date": "2024-07-11",
+    "status": "도축",
+    "status_date": "2025-04-28"
+  },
+  "002171744294": {
+    "acquisition_date": "2024-07-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002171748845": {
+    "acquisition_date": "2024-09-03",
+    "status": "도축",
+    "status_date": "2025-09-30"
+  },
+  "002171913416": {
+    "acquisition_date": "2024-06-21",
+    "status": "도축",
+    "status_date": "2025-11-14"
+  },
+  "002171952736": {
+    "acquisition_date": "2024-07-04",
+    "status": "도축",
+    "status_date": "2025-05-23"
+  },
+  "002172072072": {
+    "acquisition_date": "2023-06-19",
+    "status": "도축",
+    "status_date": "2025-04-25"
+  },
+  "002172257667": {
+    "acquisition_date": "2024-07-05",
+    "status": "도축",
+    "status_date": "2025-02-20"
+  },
+  "002172262648": {
+    "acquisition_date": "2024-08-13",
+    "status": "사육",
+    "status_date": null
+  },
+  "002172476169": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-08-28"
+  },
+  "002172587420": {
+    "acquisition_date": "2022-01-21",
+    "status": "도축",
+    "status_date": "2025-03-18"
+  },
+  "002172589007": {
+    "acquisition_date": "2022-02-22",
+    "status": "도축",
+    "status_date": "2025-08-07"
+  },
+  "002172591170": {
+    "acquisition_date": "2022-02-22",
+    "status": "사육",
+    "status_date": null
+  },
+  "002172591188": {
+    "acquisition_date": "2022-02-22",
+    "status": "도축",
+    "status_date": "2025-04-29"
+  },
+  "002172591196": {
+    "acquisition_date": "2022-02-28",
+    "status": "도축",
+    "status_date": "2025-03-25"
+  },
+  "002172591207": {
+    "acquisition_date": "2022-02-28",
+    "status": "도축",
+    "status_date": "2025-03-27"
+  },
+  "002172767659": {
+    "acquisition_date": "2022-03-15",
+    "status": "도축",
+    "status_date": "2025-09-25"
+  },
+  "002172767675": {
+    "acquisition_date": "2022-03-15",
+    "status": "도축",
+    "status_date": "2025-04-01"
+  },
+  "002172767706": {
+    "acquisition_date": "2022-03-15",
+    "status": "도축",
+    "status_date": "2025-08-13"
+  },
+  "002172769492": {
+    "acquisition_date": "2022-03-05",
+    "status": "도축",
+    "status_date": "2025-05-15"
+  },
+  "002172769505": {
+    "acquisition_date": "2022-03-05",
+    "status": "도축",
+    "status_date": "2025-04-15"
+  },
+  "002172769530": {
+    "acquisition_date": "2022-03-10",
+    "status": "도축",
+    "status_date": "2025-03-13"
+  },
+  "002172769556": {
+    "acquisition_date": "2022-03-10",
+    "status": "도축",
+    "status_date": "2025-04-08"
+  },
+  "002173056800": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-02-28"
+  },
+  "002173326774": {
+    "acquisition_date": "2024-06-21",
+    "status": "도축",
+    "status_date": "2025-12-26"
+  },
+  "002173326799": {
+    "acquisition_date": "2024-06-21",
+    "status": "도축",
+    "status_date": "2026-01-14"
+  },
+  "002174006965": {
+    "acquisition_date": "2025-07-30",
+    "status": "도축",
+    "status_date": "2026-02-06"
+  },
+  "002174069936": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002174708074": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002174992650": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-09-18"
+  },
+  "002174992668": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-04-03"
+  },
+  "002174992756": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-04-24"
+  },
+  "002175178707": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002175415765": {
+    "acquisition_date": "2022-03-21",
+    "status": "도축",
+    "status_date": "2025-04-22"
+  },
+  "002175415773": {
+    "acquisition_date": "2022-03-29",
+    "status": "도축",
+    "status_date": "2025-03-05"
+  },
+  "002175417445": {
+    "acquisition_date": "2022-04-01",
+    "status": "도축",
+    "status_date": "2025-03-20"
+  },
+  "002175476197": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2025-11-12"
+  },
+  "002175554966": {
+    "acquisition_date": "2023-03-06",
+    "status": "도축",
+    "status_date": "2025-09-29"
+  },
+  "002175710235": {
+    "acquisition_date": "2024-06-18",
+    "status": "도축",
+    "status_date": "2025-10-31"
+  },
+  "002176174088": {
+    "acquisition_date": "2023-02-28",
+    "status": "도축",
+    "status_date": "2025-02-12"
+  },
+  "002176310821": {
+    "acquisition_date": "2024-06-19",
+    "status": "도축",
+    "status_date": "2025-05-14"
+  },
+  "002176533609": {
+    "acquisition_date": "2024-06-07",
+    "status": "도축",
+    "status_date": "2025-12-11"
+  },
+  "002176784896": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002176784915": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002176786148": {
+    "acquisition_date": "2024-07-29",
+    "status": "도축",
+    "status_date": "2025-10-17"
+  },
+  "002176786412": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-01-20"
+  },
+  "002176786470": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-11-27"
+  },
+  "002176821247": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002176829587": {
+    "acquisition_date": "2024-07-04",
+    "status": "도축",
+    "status_date": "2025-12-22"
+  },
+  "002176860147": {
+    "acquisition_date": "2022-04-14",
+    "status": "도축",
+    "status_date": "2025-03-28"
+  },
+  "002176860163": {
+    "acquisition_date": "2022-04-27",
+    "status": "도축",
+    "status_date": "2025-03-26"
+  },
+  "002176860171": {
+    "acquisition_date": "2022-04-29",
+    "status": "도축",
+    "status_date": "2025-09-23"
+  },
+  "002176860180": {
+    "acquisition_date": "2022-04-29",
+    "status": "도축",
+    "status_date": "2025-02-27"
+  },
+  "002176886060": {
+    "acquisition_date": "2024-06-21",
+    "status": "도축",
+    "status_date": "2025-06-11"
+  },
+  "002176887763": {
+    "acquisition_date": "2024-05-17",
+    "status": "도축",
+    "status_date": "2025-11-26"
+  },
+  "002177019587": {
+    "acquisition_date": "2023-03-08",
+    "status": "도축",
+    "status_date": "2025-07-09"
+  },
+  "002177381267": {
+    "acquisition_date": "2023-03-02",
+    "status": "도축",
+    "status_date": "2025-07-08"
+  },
+  "002177610781": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-09-16"
+  },
+  "002177704995": {
+    "acquisition_date": "2024-06-21",
+    "status": "도축",
+    "status_date": "2025-07-01"
+  },
+  "002177712770": {
+    "acquisition_date": "2023-03-06",
+    "status": "도축",
+    "status_date": "2025-05-22"
+  },
+  "002177828311": {
+    "acquisition_date": "2022-05-09",
+    "status": "도축",
+    "status_date": "2025-04-04"
+  },
+  "002177828320": {
+    "acquisition_date": "2022-05-09",
+    "status": "도축",
+    "status_date": "2025-04-23"
+  },
+  "002177828338": {
+    "acquisition_date": "2022-05-14",
+    "status": "도축",
+    "status_date": "2025-09-24"
+  },
+  "002177828346": {
+    "acquisition_date": "2022-05-14",
+    "status": "도축",
+    "status_date": "2025-04-16"
+  },
+  "002177828362": {
+    "acquisition_date": "2022-05-18",
+    "status": "도축",
+    "status_date": "2025-03-21"
+  },
+  "002177828395": {
+    "acquisition_date": "2022-05-30",
+    "status": "도축",
+    "status_date": "2025-03-12"
+  },
+  "002177828400": {
+    "acquisition_date": "2022-05-31",
+    "status": "도축",
+    "status_date": "2025-11-04"
+  },
+  "002177829812": {
+    "acquisition_date": "2022-05-31",
+    "status": "도축",
+    "status_date": "2025-03-14"
+  },
+  "002177829829": {
+    "acquisition_date": "2022-05-31",
+    "status": "도축",
+    "status_date": "2025-06-04"
+  },
+  "002177829837": {
+    "acquisition_date": "2022-05-31",
+    "status": "도축",
+    "status_date": "2025-09-22"
+  },
+  "002177998897": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-04-28"
+  },
+  "002177998901": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-09-30"
+  },
+  "002177998910": {
+    "acquisition_date": "2023-03-06",
+    "status": "도축",
+    "status_date": "2025-09-26"
+  },
+  "002177998928": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-04-30"
+  },
+  "002177998944": {
+    "acquisition_date": "2023-03-06",
+    "status": "도축",
+    "status_date": "2025-02-13"
+  },
+  "002177998969": {
+    "acquisition_date": "2023-03-06",
+    "status": "도축",
+    "status_date": "2025-06-12"
+  },
+  "002178249600": {
+    "acquisition_date": "2023-02-23",
+    "status": "도축",
+    "status_date": "2025-07-28"
+  },
+  "002178252461": {
+    "acquisition_date": "2024-07-11",
+    "status": "도축",
+    "status_date": "2025-06-02"
+  },
+  "002178254981": {
+    "acquisition_date": "2023-02-23",
+    "status": "도축",
+    "status_date": "2025-02-17"
+  },
+  "002178263040": {
+    "acquisition_date": "2023-02-23",
+    "status": "도축",
+    "status_date": "2025-08-12"
+  },
+  "002178272384": {
+    "acquisition_date": "2023-02-23",
+    "status": "도축",
+    "status_date": "2025-07-29"
+  },
+  "002178470833": {
+    "acquisition_date": "2023-02-27",
+    "status": "도축",
+    "status_date": "2025-09-10"
+  },
+  "002178555370": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002178555407": {
+    "acquisition_date": "2025-07-31",
+    "status": "사육",
+    "status_date": null
+  },
+  "002178828538": {
+    "acquisition_date": "2023-02-22",
+    "status": "도축",
+    "status_date": "2025-09-03"
+  },
+  "002178830488": {
+    "acquisition_date": "2023-02-22",
+    "status": "도축",
+    "status_date": "2025-08-20"
+  },
+  "002178832088": {
+    "acquisition_date": "2023-02-22",
+    "status": "도축",
+    "status_date": "2025-02-10"
+  },
+  "002178832211": {
+    "acquisition_date": "2023-02-22",
+    "status": "도축",
+    "status_date": "2025-07-31"
+  },
+  "002178888151": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-07-03"
+  },
+  "002178990506": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-08-26"
+  },
+  "002179098405": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002179102955": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-08-21"
+  },
+  "002179386283": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-08-19"
+  },
+  "002179407399": {
+    "acquisition_date": "2025-08-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002179460240": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-02-06"
+  },
+  "002179461556": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-07-23"
+  },
+  "002179590151": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-07-11"
+  },
+  "002179592809": {
+    "acquisition_date": "2023-02-21",
+    "status": "도축",
+    "status_date": "2025-12-23"
+  },
+  "002179725506": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002179729751": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2025-07-16"
+  },
+  "002180167267": {
+    "acquisition_date": "2022-06-14",
+    "status": "도축",
+    "status_date": "2025-05-28"
+  },
+  "002180167275": {
+    "acquisition_date": "2022-06-16",
+    "status": "도축",
+    "status_date": "2025-05-07"
+  },
+  "002180167283": {
+    "acquisition_date": "2022-06-17",
+    "status": "도축",
+    "status_date": "2025-09-11"
+  },
+  "002180167291": {
+    "acquisition_date": "2022-06-20",
+    "status": "도축",
+    "status_date": "2025-06-10"
+  },
+  "002180167306": {
+    "acquisition_date": "2022-06-20",
+    "status": "도축",
+    "status_date": "2025-04-17"
+  },
+  "002180167314": {
+    "acquisition_date": "2022-07-01",
+    "status": "도축",
+    "status_date": "2025-05-21"
+  },
+  "002180167322": {
+    "acquisition_date": "2022-07-01",
+    "status": "도축",
+    "status_date": "2025-05-30"
+  },
+  "002180167339": {
+    "acquisition_date": "2022-07-02",
+    "status": "도축",
+    "status_date": "2025-05-29"
+  },
+  "002180167347": {
+    "acquisition_date": "2022-07-09",
+    "status": "도축",
+    "status_date": "2025-10-28"
+  },
+  "002180167355": {
+    "acquisition_date": "2022-07-11",
+    "status": "도축",
+    "status_date": "2025-10-14"
+  },
+  "002180167363": {
+    "acquisition_date": "2022-07-11",
+    "status": "도축",
+    "status_date": "2025-06-13"
+  },
+  "002180167371": {
+    "acquisition_date": "2022-07-14",
+    "status": "도축",
+    "status_date": "2025-11-19"
+  },
+  "002180167380": {
+    "acquisition_date": "2022-08-03",
+    "status": "도축",
+    "status_date": "2025-06-19"
+  },
+  "002180167398": {
+    "acquisition_date": "2022-08-06",
+    "status": "도축",
+    "status_date": "2025-10-30"
+  },
+  "002180167402": {
+    "acquisition_date": "2022-08-10",
+    "status": "도축",
+    "status_date": "2025-09-04"
+  },
+  "002180172116": {
+    "acquisition_date": "2022-09-09",
+    "status": "도축",
+    "status_date": "2026-02-05"
+  },
+  "002180192914": {
+    "acquisition_date": "2023-06-01",
+    "status": "도축",
+    "status_date": "2025-08-06"
+  },
+  "002180484755": {
+    "acquisition_date": "2023-03-02",
+    "status": "도축",
+    "status_date": "2025-07-10"
+  },
+  "002180501822": {
+    "acquisition_date": "2025-11-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002180623767": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2025-11-06"
+  },
+  "002180806546": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002180909103": {
+    "acquisition_date": "2023-06-23",
+    "status": "도축",
+    "status_date": "2025-12-17"
+  },
+  "002181494473": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002181494891": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2025-12-30"
+  },
+  "002181494906": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2026-01-15"
+  },
+  "002181494914": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2026-01-02"
+  },
+  "002181494922": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2025-12-29"
+  },
+  "002181494947": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2025-12-30"
+  },
+  "002181497513": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-16"
+  },
+  "002181497530": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-31"
+  },
+  "002181497548": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-01-22"
+  },
+  "002181497556": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-15"
+  },
+  "002181497564": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-18"
+  },
+  "002181497572": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-01-30"
+  },
+  "002181497589": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2025-12-12"
+  },
+  "002181497597": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-05-22"
+  },
+  "002181497601": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-01-21"
+  },
+  "002181594991": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2026-01-06"
+  },
+  "002181607303": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002181810494": {
+    "acquisition_date": "2022-08-24",
+    "status": "도축",
+    "status_date": "2025-04-10"
+  },
+  "002181810509": {
+    "acquisition_date": "2022-09-03",
+    "status": "도축",
+    "status_date": "2025-06-17"
+  },
+  "002181819810": {
+    "acquisition_date": "2022-10-04",
+    "status": "도축",
+    "status_date": "2025-11-20"
+  },
+  "002181819828": {
+    "acquisition_date": "2022-10-05",
+    "status": "도축",
+    "status_date": "2025-04-25"
+  },
+  "002181819836": {
+    "acquisition_date": "2022-10-08",
+    "status": "도축",
+    "status_date": "2026-01-29"
+  },
+  "002181819844": {
+    "acquisition_date": "2022-10-18",
+    "status": "도축",
+    "status_date": "2025-10-22"
+  },
+  "002181819852": {
+    "acquisition_date": "2022-10-22",
+    "status": "도축",
+    "status_date": "2025-10-20"
+  },
+  "002181873821": {
+    "acquisition_date": "2023-06-12",
+    "status": "도축",
+    "status_date": "2026-02-11"
+  },
+  "002182347655": {
+    "acquisition_date": "2023-06-30",
+    "status": "도축",
+    "status_date": "2025-09-26"
+  },
+  "002182471739": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-02-09"
+  },
+  "002182473773": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2025-10-23"
+  },
+  "002182475285": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-02-19"
+  },
+  "002182662753": {
+    "acquisition_date": "2023-07-06",
+    "status": "도축",
+    "status_date": "2025-10-29"
+  },
+  "002182913889": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183025359": {
+    "acquisition_date": "2023-06-01",
+    "status": "도축",
+    "status_date": "2025-08-08"
+  },
+  "002183241390": {
+    "acquisition_date": "2024-06-21",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183622139": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183622278": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183626915": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183681101": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002183841048": {
+    "acquisition_date": "2023-07-07",
+    "status": "도축",
+    "status_date": "2025-11-13"
+  },
+  "002183846420": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-04-01"
+  },
+  "002183932651": {
+    "acquisition_date": "2025-08-11",
+    "status": "도축",
+    "status_date": "2025-12-29"
+  },
+  "002184014691": {
+    "acquisition_date": "2025-04-29",
+    "status": "도축",
+    "status_date": "2026-02-25"
+  },
+  "002184035036": {
+    "acquisition_date": "2025-07-14",
+    "status": "도축",
+    "status_date": "2026-02-10"
+  },
+  "002184037120": {
+    "acquisition_date": "2024-06-07",
+    "status": "도축",
+    "status_date": "2025-12-09"
+  },
+  "002184047538": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002184353686": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002184432415": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002184435217": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002184438668": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002184440423": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002185056092": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2026-02-03"
+  },
+  "002185056105": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2026-01-27"
+  },
+  "002185056113": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2026-03-20"
+  },
+  "002185056121": {
+    "acquisition_date": "2023-02-24",
+    "status": "도축",
+    "status_date": "2026-02-10"
+  },
+  "002185267756": {
+    "acquisition_date": "2025-07-23",
+    "status": "도축",
+    "status_date": "2026-02-10"
+  },
+  "002185542455": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002185608939": {
+    "acquisition_date": "2025-05-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002185804484": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002185918727": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002186227839": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-03-26"
+  },
+  "002186227847": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-02-11"
+  },
+  "002186227855": {
+    "acquisition_date": "2023-04-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002186227863": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-03-19"
+  },
+  "002186227871": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-03-27"
+  },
+  "002186227880": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-03-11"
+  },
+  "002186227898": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-04-02"
+  },
+  "002186227902": {
+    "acquisition_date": "2023-04-04",
+    "status": "도축",
+    "status_date": "2026-02-11"
+  },
+  "002186538219": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002186840535": {
+    "acquisition_date": "2024-05-17",
+    "status": "도축",
+    "status_date": "2025-12-24"
+  },
+  "002187305465": {
+    "acquisition_date": "2025-07-23",
+    "status": "사육",
+    "status_date": null
+  },
+  "002187488669": {
+    "acquisition_date": "2024-06-21",
+    "status": "사육",
+    "status_date": null
+  },
+  "002187799780": {
+    "acquisition_date": "2023-05-08",
+    "status": "도축",
+    "status_date": "2026-03-12"
+  },
+  "002187799819": {
+    "acquisition_date": "2023-05-08",
+    "status": "도축",
+    "status_date": "2026-03-25"
+  },
+  "002187799827": {
+    "acquisition_date": "2023-05-08",
+    "status": "도축",
+    "status_date": "2025-07-17"
+  },
+  "002188337624": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-04-07"
+  },
+  "002189072277": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189072285": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189134930": {
+    "acquisition_date": "2023-05-15",
+    "status": "도축",
+    "status_date": "2026-05-06"
+  },
+  "002189134948": {
+    "acquisition_date": "2023-05-15",
+    "status": "도축",
+    "status_date": "2026-02-20"
+  },
+  "002189153621": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189605704": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189655402": {
+    "acquisition_date": "2025-06-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189863617": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-04-08"
+  },
+  "002189863625": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-05-07"
+  },
+  "002189863633": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-03-31"
+  },
+  "002189863641": {
+    "acquisition_date": "2023-06-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002189863650": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-05-13"
+  },
+  "002189863668": {
+    "acquisition_date": "2023-06-07",
+    "status": "도축",
+    "status_date": "2026-05-14"
+  },
+  "002190506105": {
+    "acquisition_date": "2025-06-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002190779126": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-04-29"
+  },
+  "002190779134": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-05-04"
+  },
+  "002190779142": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-04-16"
+  },
+  "002190779159": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-05-21"
+  },
+  "002190779167": {
+    "acquisition_date": "2023-07-04",
+    "status": "도축",
+    "status_date": "2026-04-09"
+  },
+  "002190780036": {
+    "acquisition_date": "2023-07-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002190780044": {
+    "acquisition_date": "2023-07-18",
+    "status": "도축",
+    "status_date": "2026-02-26"
+  },
+  "002190780052": {
+    "acquisition_date": "2023-07-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002190780069": {
+    "acquisition_date": "2023-07-18",
+    "status": "도축",
+    "status_date": "2026-03-13"
+  },
+  "002190780077": {
+    "acquisition_date": "2023-07-18",
+    "status": "도축",
+    "status_date": "2026-05-19"
+  },
+  "002190832337": {
+    "acquisition_date": "2025-06-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002191069509": {
+    "acquisition_date": "2023-07-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002191070396": {
+    "acquisition_date": "2023-07-25",
+    "status": "도축",
+    "status_date": "2026-04-15"
+  },
+  "002191070407": {
+    "acquisition_date": "2023-07-25",
+    "status": "도축",
+    "status_date": "2026-05-27"
+  },
+  "002191375058": {
+    "acquisition_date": "2025-06-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192354677": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192354693": {
+    "acquisition_date": "2024-10-29",
+    "status": "도축",
+    "status_date": "2026-04-03"
+  },
+  "002192416361": {
+    "acquisition_date": "2023-08-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192416798": {
+    "acquisition_date": "2023-08-16",
+    "status": "도축",
+    "status_date": "2026-05-08"
+  },
+  "002192419508": {
+    "acquisition_date": "2023-10-24",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192420957": {
+    "acquisition_date": "2023-10-24",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192420965": {
+    "acquisition_date": "2023-10-24",
+    "status": "도축",
+    "status_date": "2026-04-10"
+  },
+  "002192420973": {
+    "acquisition_date": "2023-10-24",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192420981": {
+    "acquisition_date": "2023-10-24",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192421103": {
+    "acquisition_date": "2023-10-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192421849": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002192458580": {
+    "acquisition_date": "2025-11-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193061717": {
+    "acquisition_date": "2023-08-23",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193061725": {
+    "acquisition_date": "2023-08-23",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193061733": {
+    "acquisition_date": "2023-08-23",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193064357": {
+    "acquisition_date": "2023-09-06",
+    "status": "도축",
+    "status_date": "2026-05-06"
+  },
+  "002193064365": {
+    "acquisition_date": "2023-09-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193064373": {
+    "acquisition_date": "2023-09-06",
+    "status": "도축",
+    "status_date": "2026-05-26"
+  },
+  "002193734558": {
+    "acquisition_date": "2025-08-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193905909": {
+    "acquisition_date": "2025-06-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193910478": {
+    "acquisition_date": "2024-06-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002193911501": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002194919637": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002194981819": {
+    "acquisition_date": "2024-08-22",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195227434": {
+    "acquisition_date": "2024-07-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195289140": {
+    "acquisition_date": "2024-06-21",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195455244": {
+    "acquisition_date": "2024-06-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195455646": {
+    "acquisition_date": "2024-09-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195641785": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195641881": {
+    "acquisition_date": "2025-06-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195866743": {
+    "acquisition_date": "2025-11-25",
+    "status": "사육",
+    "status_date": null
+  },
+  "002195937437": {
+    "acquisition_date": "2024-09-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196004680": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196004698": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196004702": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196005004": {
+    "acquisition_date": "2024-09-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196007920": {
+    "acquisition_date": "2024-08-13",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009802": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009819": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009827": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009835": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009843": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009851": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009917": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002196009941": {
+    "acquisition_date": "2024-09-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002198207086": {
+    "acquisition_date": "2025-06-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002199267980": {
+    "acquisition_date": "2024-09-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002199346242": {
+    "acquisition_date": "2025-06-03",
+    "status": "사육",
+    "status_date": null
+  },
+  "002200606001": {
+    "acquisition_date": "2025-06-09",
+    "status": "사육",
+    "status_date": null
+  },
+  "002201877637": {
+    "acquisition_date": "2024-10-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002201877645": {
+    "acquisition_date": "2024-10-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202176646": {
+    "acquisition_date": "2024-08-21",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202176775": {
+    "acquisition_date": "2024-08-13",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202176919": {
+    "acquisition_date": "2024-07-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202177307": {
+    "acquisition_date": "2025-04-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202181153": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202181161": {
+    "acquisition_date": "2024-10-29",
+    "status": "폐사",
+    "status_date": "2025-10-24"
+  },
+  "002202181215": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202520069": {
+    "acquisition_date": "2024-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521115": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521131": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521140": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521158": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521166": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521174": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521182": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521199": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521203": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521211": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521220": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521238": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521246": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521254": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521262": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202521279": {
+    "acquisition_date": "2024-07-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202522816": {
+    "acquisition_date": "2024-08-12",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202523392": {
+    "acquisition_date": "2024-07-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002202523405": {
+    "acquisition_date": "2024-07-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203226870": {
+    "acquisition_date": "2024-10-21",
+    "status": "폐사",
+    "status_date": "2025-09-19"
+  },
+  "002203226888": {
+    "acquisition_date": "2024-10-21",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203231674": {
+    "acquisition_date": "2024-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203231682": {
+    "acquisition_date": "2024-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203687886": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203689327": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002203689804": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002204973957": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002204973965": {
+    "acquisition_date": "2024-10-29",
+    "status": "사육",
+    "status_date": null
+  },
+  "002204977802": {
+    "acquisition_date": "2025-01-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206208126": {
+    "acquisition_date": "2024-12-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206209549": {
+    "acquisition_date": "2025-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206209557": {
+    "acquisition_date": "2025-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206210012": {
+    "acquisition_date": "2024-12-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206210756": {
+    "acquisition_date": "2025-01-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206210764": {
+    "acquisition_date": "2025-01-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206982976": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206983346": {
+    "acquisition_date": "2025-05-07",
+    "status": "양수도",
+    "status_date": "2025-06-30"
+  },
+  "002206983354": {
+    "acquisition_date": "2025-05-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206983362": {
+    "acquisition_date": "2025-05-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206983379": {
+    "acquisition_date": "2025-05-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206983387": {
+    "acquisition_date": "2025-05-07",
+    "status": "양수도",
+    "status_date": "2025-06-30"
+  },
+  "002206983395": {
+    "acquisition_date": "2025-05-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206983418": {
+    "acquisition_date": "2025-05-07",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206987534": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206987542": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206987559": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206987575": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002206987583": {
+    "acquisition_date": "2025-07-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207355879": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207356009": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207356515": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207357307": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207358326": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207626215": {
+    "acquisition_date": "2025-01-31",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207627652": {
+    "acquisition_date": "2025-05-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207627669": {
+    "acquisition_date": "2025-05-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002207749407": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205660": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205678": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205686": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205694": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205709": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208205717": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002208669829": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209112323": {
+    "acquisition_date": "2025-11-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209547072": {
+    "acquisition_date": "2025-04-16",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209547089": {
+    "acquisition_date": "2025-04-16",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209552533": {
+    "acquisition_date": "2025-03-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209552541": {
+    "acquisition_date": "2025-03-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209552550": {
+    "acquisition_date": "2025-03-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209552568": {
+    "acquisition_date": "2025-03-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209552865": {
+    "acquisition_date": "2025-03-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209790715": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209906139": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002209914649": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210033235": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210036928": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210175284": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210510723": {
+    "acquisition_date": "2025-11-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210517415": {
+    "acquisition_date": "2025-11-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210700701": {
+    "acquisition_date": "2025-11-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210703798": {
+    "acquisition_date": "2025-11-19",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210792808": {
+    "acquisition_date": "2025-09-04",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210792865": {
+    "acquisition_date": "2025-05-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210792881": {
+    "acquisition_date": "2025-05-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210794336": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210794699": {
+    "acquisition_date": "2025-05-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002210794703": {
+    "acquisition_date": "2025-05-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211176035": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211176043": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211176328": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211190111": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211190120": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211190138": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211294948": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211295668": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211296187": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211298027": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211299600": {
+    "acquisition_date": "2025-11-14",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211575717": {
+    "acquisition_date": "2025-07-23",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211716067": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211763045": {
+    "acquisition_date": "2025-07-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211858942": {
+    "acquisition_date": "2025-06-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211860824": {
+    "acquisition_date": "2025-06-10",
+    "status": "사육",
+    "status_date": null
+  },
+  "002211861456": {
+    "acquisition_date": "2025-06-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002212200072": {
+    "acquisition_date": "2025-11-18",
+    "status": "사육",
+    "status_date": null
+  },
+  "002212891404": {
+    "acquisition_date": "2025-06-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002212894138": {
+    "acquisition_date": "2025-07-31",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213378895": {
+    "acquisition_date": "2025-07-15",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213378900": {
+    "acquisition_date": "2025-07-15",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213380533": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213380541": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213380550": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213380568": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213381899": {
+    "acquisition_date": "2025-07-30",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213381954": {
+    "acquisition_date": "2025-07-31",
+    "status": "사육",
+    "status_date": null
+  },
+  "002213383642": {
+    "acquisition_date": "2025-08-06",
+    "status": "사육",
+    "status_date": null
+  },
+  "002214518545": {
+    "acquisition_date": "2025-08-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002214518553": {
+    "acquisition_date": "2025-08-26",
+    "status": "사육",
+    "status_date": null
+  },
+  "002215033846": {
+    "acquisition_date": "2025-10-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002216337017": {
+    "acquisition_date": "2025-10-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002216337025": {
+    "acquisition_date": "2025-10-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002216337033": {
+    "acquisition_date": "2025-10-17",
+    "status": "사육",
+    "status_date": null
+  },
+  "002216340117": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  },
+  "002216340125": {
+    "acquisition_date": "2025-11-11",
+    "status": "사육",
+    "status_date": null
+  }
+}
