@@ -101,28 +101,33 @@ def mark_doc_processed(doc_name: str, farm_name: str, doc_date: str, cattle_coun
 
 
 def get_monthly_total_counts(year: int) -> dict[int, int]:
-    """그 연도 1~12월 별, 모든 농장의 그 월 최신 doc_date 의 cattle_count 합.
+    """그 연도 1~12월의 월사육두수 (모든 농장 합산).
 
-    같은 농장이 같은 월에 여러 doc 면 가장 최근 것만 사용.
+    각 농장별로 그 월의 최신 doc_date 의 cattle_count 를 잡고,
+    doc 가 없는 월은 직전 월 값을 캐리오버. 그 후 농장 간 합산.
     """
-    result: dict[int, int] = {m: 0 for m in range(1, 13)}
     with connect() as conn:
-        cur = conn.execute(
-            """SELECT farm_name, substr(doc_date, 6, 2) AS mm, doc_date, cattle_count
-               FROM processed_docs
-               WHERE substr(doc_date, 1, 4) = ?
-               ORDER BY farm_name, doc_date DESC""",
-            (str(year),),
-        )
-        seen: set[tuple[str, str]] = set()
-        for row in cur:
-            key = (row["farm_name"], row["mm"])
-            if key in seen:
-                continue
-            seen.add(key)
-            month = int(row["mm"])
-            result[month] += row["cattle_count"] or 0
-    return result
+        farms = [r["farm_name"] for r in conn.execute("SELECT DISTINCT farm_name FROM processed_docs")]
+        result: dict[int, int] = {m: 0 for m in range(1, 13)}
+        for farm in farms:
+            cur = conn.execute(
+                """SELECT substr(doc_date, 6, 2) AS mm, cattle_count, doc_date
+                   FROM processed_docs
+                   WHERE farm_name = ? AND substr(doc_date, 1, 4) = ?
+                   ORDER BY doc_date""",
+                (farm, str(year)),
+            )
+            # 농장별 월→cattle_count (같은 월에 여러 doc 면 가장 최근값)
+            farm_monthly: dict[int, int] = {}
+            for r in cur:
+                farm_monthly[int(r["mm"])] = r["cattle_count"] or 0
+            # 정방향 캐리오버
+            last_val = 0
+            for m in range(1, 13):
+                if m in farm_monthly:
+                    last_val = farm_monthly[m]
+                result[m] += last_val
+        return result
 
 
 def upsert_farm(farm_name: str, farm_id: str | None, owner: str | None, address: str | None) -> None:
