@@ -11,7 +11,7 @@ import io
 import os
 import tempfile
 import threading
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -164,9 +164,9 @@ with st.sidebar:
     st.header("⚙️ 옵션")
     reference_date = st.date_input(
         "기준일",
-        value=datetime.now().date(),
+        value=date(2025, 12, 31),
         help="이 날짜에 우리 농장에서 사육 중인 어린소만 송아지 시트에 포함."
-        " 현재월령도 이 날짜로 계산. 비우면 오늘 날짜.",
+        " 현재월령도 이 날짜로 계산. 직접 변경 가능, 기본값 2025-12-31.",
     )
     use_api = st.toggle(
         "이력조회 API 호출",
